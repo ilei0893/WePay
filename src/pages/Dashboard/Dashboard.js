@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 
 //img
-import placeholder from "../assets/image-placeholder.jpg";
+import placeholder from "../../assets/image-placeholder.jpg";
 
 export default class Dashboard extends Component {
   render() {

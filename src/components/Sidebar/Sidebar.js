@@ -1,7 +1,8 @@
 import React from "react";
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent, SidebarHeader } from "react-pro-sidebar";
 import 'react-pro-sidebar/dist/css/styles.css';
-import {FaHome, FaHouseUser, FaMoneyBillWave, FaChevronLeft} from 'react-icons/fa';
+import {FaHome, FaHouseUser, FaMoneyBillWave, FaChevronLeft, FaRegBuilding, FaInbox} from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 export default function Sidebar(props) {
   return (
@@ -15,10 +16,12 @@ export default function Sidebar(props) {
           </SidebarHeader>
           <SidebarContent>
         <Menu iconShape="circle">
-          <MenuItem icon={<FaHome />}>Dashboard</MenuItem>
-          <MenuItem icon={<FaHouseUser />}>Employment</MenuItem>
+          <MenuItem icon={<FaHome />}><Link to="/dashboard">Dashboard</Link></MenuItem>
+          <MenuItem icon={<FaHouseUser />}><Link to="/employment">Employment</Link></MenuItem>
+          <MenuItem icon={<FaInbox />}><Link to="/inbox">Inbox</Link></MenuItem>
+          <MenuItem icon={<FaRegBuilding />}>Training</MenuItem>
           <MenuItem icon={<FaMoneyBillWave />}>Payroll</MenuItem>
-          <MenuItem icon={<FaChevronLeft />}>Log out</MenuItem>
+          <MenuItem icon={<FaChevronLeft />}><Link to="/">Log Out</Link></MenuItem>
           {/* IF WE NEED A SUBMENU */}
           {/* <SubMenu title="???">
             <MenuItem>Component 1</MenuItem>
