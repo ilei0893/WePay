@@ -205,7 +205,7 @@ export default class LandingPage extends Component {
                   <Link to="/dashboard">Testing</Link>
                 </Nav.Link>
                 <Nav.Link href="#pricing">Pricing</Nav.Link>
-                <Nav.Link href="#pricing">About Us</Nav.Link>
+                <Nav.Link href="#aboutus">About Us</Nav.Link>
               </Nav>
               <Button
                 className="landing-button"
