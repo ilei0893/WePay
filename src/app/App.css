@@ -1,7 +1,7 @@
 /* landingpage.js css */
 .main_landing {
-  background-image:url('./assets/landin_background.png');
-  background-size:cover;
+  background-image: url("../assets/landin_background.png");
+  background-size: cover;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -41,7 +41,6 @@
   width: 100%;
   height: 120px;
   padding: 30px 100px 30px 100px;
-
 }
 
 .about-cards {
@@ -73,7 +72,6 @@
   height: 120px;
   padding: 30px 100px 30px 100px;
   /* border-top: 2px solid rgb(207, 207, 207); */
-
 }
 
 /* layout.js css */
