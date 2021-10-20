@@ -4,6 +4,9 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import {FaHome, FaHouseUser, FaMoneyBillWave, FaChevronLeft, FaRegBuilding, FaInbox} from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
+//css
+import './Sidebar.css';
+
 export default function Sidebar(props) {
   return (
     <div className='sidebar'>
@@ -30,7 +33,7 @@ export default function Sidebar(props) {
         </Menu>
         </SidebarContent>
         <SidebarFooter style={{ textAlign: 'center', padding: '20px' }}>
-            ?!?rjkdfgkhjfgdkjh
+            <Link to="/settings" className="no-dec">Settings</Link>
       </SidebarFooter>
       </ProSidebar>
     </div>
