@@ -1,0 +1,8 @@
+.no-dec {
+    text-decoration: none;
+    color: white;
+}
+.no-dec:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.479);
+}
