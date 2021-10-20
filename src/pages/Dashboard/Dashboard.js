@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import Calendar from "react-calendar";
+import axios from "axios";
 //css
 import "./Dashboard.css";
 import 'react-calendar/dist/Calendar.css';
@@ -20,10 +21,13 @@ export default class Dashboard extends Component {
   state = {
     date: new Date(),
   };
-
+  
   onChange = (date) => this.setState({ date });
 
   render() {
+    axios.get('http://localhost:3001/').then((response) => {
+      console.log(response.data);
+    });
     if (USER.status === "hr") {
       return (
         <div>
