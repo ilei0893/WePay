@@ -5,8 +5,10 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Employement from "../pages/Dashboard/Employment";
 import AddEmployee from "../pages/Dashboard/AddEmployee";
 import Inbox from "../pages/Dashboard/Inbox";
+import Payroll from "../pages/Payroll/Payroll";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 function App() {
   return (
     <Router>
@@ -15,16 +17,19 @@ function App() {
           <Home />
         </Route>
         <Route path="/dashboard">
-          <Layout page={<Dashboard />}/>
+          <Layout page={<Dashboard />} />
         </Route>
         <Route path="/employment">
-          <Layout page={<Employement />}/>
+          <Layout page={<Employement />} />
         </Route>
         <Route path="/inbox">
-          <Layout page={<Inbox />}/>
+          <Layout page={<Inbox />} />
         </Route>
         <Route path="/add-employee">
-          <Layout page={<AddEmployee />}/>
+          <Layout page={<AddEmployee />} />
+        </Route>
+        <Route path="/Payroll">
+          <Layout page={<Payroll />} />
         </Route>
       </Switch>
     </Router>
