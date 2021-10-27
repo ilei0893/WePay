@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import Calendar from "react-calendar";
+
 //css
 import "./Dashboard.css";
 import 'react-calendar/dist/Calendar.css';
@@ -20,7 +21,7 @@ export default class Dashboard extends Component {
   state = {
     date: new Date(),
   };
-
+  
   onChange = (date) => this.setState({ date });
 
   render() {

@@ -1,7 +1,6 @@
 /* landingpage.js css */
 .main_landing {
   background-image: url('../assets/landin_background.png');
-  background-image: url("../assets/landin_background.png");
   background-size: cover;
   display: flex;
   justify-content: center;
