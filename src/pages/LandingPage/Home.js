@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import OnlineReportImage from "../../assets/Online_report_Outline.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./LandingPage.css";
 //icons
 import { FaLock, FaHouseUser, FaLaptop, FaRing } from "react-icons/fa";
 export default class LandingPage extends Component {

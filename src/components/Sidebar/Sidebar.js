@@ -21,10 +21,10 @@ export default function Sidebar(props) {
         <Menu iconShape="circle">
           <MenuItem icon={<FaHome />}><Link to="/dashboard">Dashboard</Link></MenuItem>
           <MenuItem icon={<FaHouseUser />}><Link to="/employment">Employment</Link></MenuItem>
-          <MenuItem icon={<FaRegBuilding />}>Benefits</MenuItem>
+          <MenuItem icon={<FaRegBuilding />}><Link to="/Benefits">Benefits</Link></MenuItem>
           <MenuItem icon={<FaInbox />}><Link to="/inbox">Inbox</Link></MenuItem>
           <MenuItem icon={<FaRegBuilding />}>Training</MenuItem>
-          <MenuItem icon={<FaMoneyBillWave />}>Payroll</MenuItem>
+          <MenuItem icon={<FaMoneyBillWave />}><Link to="/Payroll">Payroll</Link></MenuItem>
           <MenuItem icon={<FaChevronLeft />}><Link to="/">Log Out</Link></MenuItem>
           {/* IF WE NEED A SUBMENU */}
           {/* <SubMenu title="???">
