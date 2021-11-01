@@ -33,10 +33,10 @@ function App() {
         <Route path="/delete-employee">
           <Layout page={<DeleteEmployee />} />
         </Route>
-        <Route path="/Payroll">
+        <Route path="/payroll">
           <Layout page={<Payroll />} />
         </Route>
-        <Route path="/Benefits">
+        <Route path="/benefits">
           <Layout page={<Benefits />} />
         </Route>
       </Switch>
