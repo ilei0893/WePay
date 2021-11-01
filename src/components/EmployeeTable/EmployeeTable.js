@@ -27,10 +27,16 @@ export default class EmployeeTable extends Component {
           <td> Resume, Info, etc.</td>
         </tr>
         );
+        //flip array so we can show a descending order
+        let temp = [];
+        for(let i = group.length-1; i >= 0; i--){
+          temp.push(group[i]);
+        }
         this.setState({
-          data: group,
+          data: temp,
         });
       });
+
       console.log(this.state.data);
     });
   }
