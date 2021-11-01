@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import BenefitsTable from "../../components/BenefitsTable/BenefitsTable";
 
 export default class Benefits extends Component {
   render() {
     return (
       <Container>
+        <BenefitsTable/>
         <h1>Benefits</h1>
         Blue Cross Blue Shield <br /><br />
         <h4>Manager or Employee of Higher Status</h4>
