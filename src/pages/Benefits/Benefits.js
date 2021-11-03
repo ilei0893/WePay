@@ -6,7 +6,9 @@ export default class Benefits extends Component {
   render() {
     return (
       <Container>
+        <Col>
         <BenefitsTable/>
+        <br />
         <h1>Benefits</h1>
         Blue Cross Blue Shield <br /><br />
         <h4>Manager or Employee of Higher Status</h4>
@@ -22,6 +24,7 @@ export default class Benefits extends Component {
         </p>
         <h4>Part Time Employee</h4>
         <p>No Benefits</p>
+        </Col>
       </Container>
     );
   }

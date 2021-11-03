@@ -14,16 +14,17 @@ export default class BenefitsTable extends Component {
     let group = [];
     //GET REQUEST BENEFITS FROM BENEFITS TABLE
     axios.get("http://localhost:3001/benefits").then((response) => {
+      console.log(response.data)
       response.data.map((list) => {
-
         group.push(
           <tr>
           <td align="center">
-            {/* <Image src={placeholder} width="50px" height="50px" roundedCircle /> */}
           </td>
           <td>{list.Name}</td>
-          <td> SUBMITTED</td>
-          <td> Resume, Info, etc.</td>
+          <td>{list.PTO} hrs</td>
+          <td>${list.Health_Insurance}</td>
+          <td>${list.Food_Stipend}</td>
+          <td>${list.Dental_Insurance}</td>
         </tr>
         );
         //flip array so we can show a descending order
@@ -48,8 +49,10 @@ export default class BenefitsTable extends Component {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Submission Status</th>
-              <th> Documents</th>
+              <th>PTO</th>
+              <th>Health Insurance</th>
+              <th>Food Stipend</th>
+              <th>Dental Insurance</th>
             </tr>
           </thead>
           <tbody>{this.state.data}</tbody>
