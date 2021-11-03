@@ -6,3 +6,4 @@ export { default as Sidebar } from  './Sidebar/Sidebar';
 export { default as Header } from  './Header/Header';
 export { default as EmployeeMenu } from  './EmployeeMenu/EmployeeMenu';
 export { default as EmployeeTable } from  './EmployeeTable/EmployeeTable';
+export { default as EmployeeSearch } from  './EmployeeSearch/EmployeeSearch';

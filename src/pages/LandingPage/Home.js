@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import OnlineReportImage from "../../assets/Online_report_Outline.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./LandingPage.css";
 //icons
 import { FaLock, FaHouseUser, FaLaptop, FaRing } from "react-icons/fa";
 export default class LandingPage extends Component {
@@ -204,7 +205,6 @@ export default class LandingPage extends Component {
                 <Nav.Link>
                   <Link to="/dashboard">Testing</Link>
                 </Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
                 <Nav.Link href="#aboutus">About Us</Nav.Link>
               </Nav>
               <Button
@@ -261,6 +261,41 @@ export default class LandingPage extends Component {
             <div className="about-card">
               <FaLaptop className="about-icons" />
               <p>Easy to use UI for quicker approvals and quicker payments.</p>
+            </div>
+          </div>
+        </div>
+        <div className="pricing">
+          <div
+            className="headline"
+            style={{ textAlign: "center", marginBottom: "20px" }}
+          >
+            Pricing
+          </div>
+          <div className="about-cards">
+            <div className="pricing-card">
+              <h6 style={{textAlign: "center"}}>$25/month</h6>
+              <ul>
+                <li>- Payroll Service</li>
+                <li>- Auto Payroll</li>
+                <li>- 401k</li>
+                <li>- Advanced Product Support</li>
+              </ul>
+            </div>
+            <div className="pricing-card">
+              <h6 style={{textAlign: "center"}}>$40/month</h6>
+              <ul>
+                <li>- Health Benefits</li>
+                <li>- Next-day Direct Deposit</li>
+                <li>- Plus everything included in the previous tiers</li>
+              </ul>
+            </div>
+            <div className="pricing-card">
+              <h6 style={{textAlign: "center"}}>$70/month</h6>
+              <ul>
+                <li>- Same-day direct deposit</li>
+                <li>- Personal HR Advisor</li>
+                <li>- Plus everything included in the previous tiers</li>
+              </ul>
             </div>
           </div>
         </div>

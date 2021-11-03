@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Card, Image, Table } from "react-bootstrap";
 import axios from "axios";
-import placeholder from "../../assets/image-placeholder.jpg";
 
-export default class EmployeeTable extends Component {
+export default class BenefitsTable extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,18 +12,19 @@ export default class EmployeeTable extends Component {
   }
   componentDidMount() {
     let group = [];
-    //GET REQUEST EMPLOYEES FROM EMPLOYEE TABLE
-    axios.get("http://localhost:3001/employees").then((response) => {
+    //GET REQUEST BENEFITS FROM BENEFITS TABLE
+    axios.get("http://localhost:3001/benefits").then((response) => {
+      console.log(response.data)
       response.data.map((list) => {
-
         group.push(
           <tr>
           <td align="center">
-            <Image src={placeholder} width="50px" height="50px" roundedCircle />
           </td>
           <td>{list.Name}</td>
-          <td> SUBMITTED</td>
-          <td> Resume, Info, etc.</td>
+          <td>{list.PTO} hrs</td>
+          <td>${list.Health_Insurance}</td>
+          <td>${list.Food_Stipend}</td>
+          <td>${list.Dental_Insurance}</td>
         </tr>
         );
         //flip array so we can show a descending order
@@ -49,8 +49,10 @@ export default class EmployeeTable extends Component {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Submission Status</th>
-              <th> Documents</th>
+              <th>PTO</th>
+              <th>Health Insurance</th>
+              <th>Food Stipend</th>
+              <th>Dental Insurance</th>
             </tr>
           </thead>
           <tbody>{this.state.data}</tbody>

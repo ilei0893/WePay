@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import Calendar from "react-calendar";
-
+import {EmployeeTable } from '../../components'
 //css
 import "./Dashboard.css";
 import 'react-calendar/dist/Calendar.css';
@@ -62,8 +62,6 @@ export default class Dashboard extends Component {
                     <h4>10</h4>
                   </div>
                 </div>
-              </Col>
-              <Col>
                 <div className="empty-box1 text-center mx-auto">
                   Needs Approval: 10
                   <div className="text-center">
@@ -72,11 +70,15 @@ export default class Dashboard extends Component {
                 </div>
               </Col>
               <Col>
+              <EmployeeTable />
+              </Col>
+              <Col>
                 <div className="empty-box2 mx-auto">
                   <Calendar onChange={this.onChange} value={this.state.date} />
                 </div>
               </Col>
             </Row>
+
           </Container>
         </div>
       );
