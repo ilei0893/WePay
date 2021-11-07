@@ -10,14 +10,8 @@ export default function EmployeeMenu() {
             <Button variant="secondary" size="lg" href="/add-employee">
               Add Employee
             </Button>
-            <Button variant="secondary" size="lg" href="#">
+            <Button variant="secondary" href="/modify-employee" size="lg">
               Modify Employee
-            </Button>
-            <Button variant="secondary" size="lg" href="#">
-              Search Employee
-            </Button>
-            <Button variant="secondary" href="/delete-employee" size="lg">
-              Delete Employee
             </Button>
           </div>
         </Card.Body>

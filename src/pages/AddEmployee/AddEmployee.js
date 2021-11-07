@@ -14,7 +14,12 @@ export default class AddEmployee extends Component {
       position: "",
       workState: "",
       livingState: "",
+      PTO: "",
+      Health_Insurance: "",
+      Food_Stipend: "",
+      Dental_Insurance: "",
       isSubmitted: false,
+      validated: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -33,6 +38,13 @@ export default class AddEmployee extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     let data = {
       name: this.state.firstName + " " + this.state.lastName,
       SSN: this.state.SSN,
@@ -42,6 +54,10 @@ export default class AddEmployee extends Component {
       position: this.state.position,
       workState: this.state.workState,
       livingState: this.state.livingState,
+      PTO: this.state.PTO,
+      Health_Insurance: this.state.Health_Insurance,
+      Food_Stipend: this.state.Food_Stipend,
+      Dental_Insurance: this.state.Dental_Insurance,
     };
 
     const config = {
@@ -56,10 +72,10 @@ export default class AddEmployee extends Component {
         console.log(response);
       });
 
-      this.setState({
-        isSubmitted: true
-      })
-    event.preventDefault();
+    this.setState({
+      validated: true,
+      isSubmitted: true,
+    });
   }
 
   render() {
@@ -74,7 +90,10 @@ export default class AddEmployee extends Component {
               </Button>
               <br />
               <br />
-              <Form>
+              <Form
+                validated={this.state.validated}
+                onSubmit={this.handleSubmit}
+              >
                 <Form.Group className="mb-3" controlId="formFirstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
@@ -82,7 +101,11 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="First Name"
                     onChange={this.handleChange}
+                    required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a name.
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLastName">
                   <Form.Label>Last Name</Form.Label>
@@ -91,6 +114,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="Last Name"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formSSN">
@@ -100,6 +124,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="xxx-xx-xxxx"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formAddress">
@@ -109,6 +134,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="00 Smiths Place"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPhoneNumber">
@@ -118,6 +144,7 @@ export default class AddEmployee extends Component {
                     type="tel"
                     placeholder="(xxx)-xxx-xxxx"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formSalary">
@@ -127,6 +154,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="$50,000"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPosition">
@@ -136,6 +164,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="Manager"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formWorkState">
@@ -145,6 +174,7 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="NY"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLivingState">
@@ -154,13 +184,51 @@ export default class AddEmployee extends Component {
                     type="text"
                     placeholder="NY"
                     onChange={this.handleChange}
+                    required
                   />
                 </Form.Group>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={this.handleSubmit}
-                >
+                <h4>Benefits</h4>
+                <Form.Group className="mb-3" controlId="formLivingState">
+                  <Form.Label>PTO</Form.Label>
+                  <Form.Control
+                    name="PTO"
+                    type="text"
+                    placeholder="0"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formLivingState">
+                  <Form.Label>Health Insurance</Form.Label>
+                  <Form.Control
+                    name="Health_Insurance"
+                    type="text"
+                    placeholder="$0"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formLivingState">
+                  <Form.Label>Food Stipend</Form.Label>
+                  <Form.Control
+                    name="Food_Stipend"
+                    type="text"
+                    placeholder="$0"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formLivingState">
+                  <Form.Label>Dental Insurance</Form.Label>
+                  <Form.Control
+                    name="Dental_Insurance"
+                    type="text"
+                    placeholder="$0"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit">
                   Submit
                 </Button>
               </Form>
@@ -172,11 +240,14 @@ export default class AddEmployee extends Component {
       return (
         <Container>
           <Col>
-          <h1> Employee Added </h1>
-          <p>Please go back</p>
-          <Button variant="primary" type="submit" href="/employment">
-            Go Back
-          </Button>
+            <h1> Employee Added </h1>
+            <p>Please go back</p>
+            <Button variant="primary" type="submit" href="/employment">
+              Go Back
+            </Button>
+            <Button variant="primary" type="submit" href="/add-employee">
+              Add New Employee
+            </Button>
           </Col>
         </Container>
       );

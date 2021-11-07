@@ -7,3 +7,7 @@ export { default as Header } from  './Header/Header';
 export { default as EmployeeMenu } from  './EmployeeMenu/EmployeeMenu';
 export { default as EmployeeTable } from  './EmployeeTable/EmployeeTable';
 export { default as EmployeeSearch } from  './EmployeeSearch/EmployeeSearch';
+export { default as EmployeeEdit } from  './EmployeeEdit/EmployeeEdit';
+export { default as BenefitsTable } from  './BenefitsTable/BenefitsTable';
+export { default as BenefitsEdit } from  './BenefitsEdit/BenefitsEdit';
+export { default as EmployeeToast } from  './Toast/EmployeeToast';

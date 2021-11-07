@@ -7,7 +7,7 @@ import AddEmployee from "../pages/AddEmployee/AddEmployee";
 import Inbox from "../pages/Inbox/Inbox";
 import Payroll from "../pages/Payroll/Payroll";
 import Benefits from "../pages/Benefits/Benefits";
-import DeleteEmployee from "../pages/DeleteEmployee/DeleteEmployee";
+import ModifyEmployee from "../pages/ModifyEmployee/ModifyEmployee";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -30,8 +30,8 @@ function App() {
         <Route path="/add-employee">
           <Layout page={<AddEmployee />} />
         </Route>
-        <Route path="/delete-employee">
-          <Layout page={<DeleteEmployee />} />
+        <Route path="/modify-employee">
+          <Layout page={<ModifyEmployee />} />
         </Route>
         <Route path="/payroll">
           <Layout page={<Payroll />} />
