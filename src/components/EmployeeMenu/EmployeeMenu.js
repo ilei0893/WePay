@@ -7,17 +7,11 @@ export default function EmployeeMenu() {
         <Card.Title style={{textAlign:"center"}}>Employee Menu</Card.Title>
         <Card.Body style={{padding:"10px 20px"}}>
           <div className="d-grid gap-2">
-            <Button variant="secondary" size="lg" href="#">
+            <Button variant="secondary" size="lg" href="/add-employee">
               Add Employee
             </Button>
-            <Button variant="secondary" size="lg" href="#">
+            <Button variant="secondary" href="/modify-employee" size="lg">
               Modify Employee
-            </Button>
-            <Button variant="secondary" size="lg" href="#">
-              Search Employee
-            </Button>
-            <Button variant="secondary" size="lg" href="#">
-              Delete Employee
             </Button>
           </div>
         </Card.Body>

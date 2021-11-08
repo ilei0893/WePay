@@ -1,0 +1,88 @@
+/* landingpage.js css */
+.main_landing {
+    background-image: url('../../assets/landin_background.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-width: 350px;
+  }
+  
+  .main__img {
+    display: block;
+    min-width: 200px;
+    margin-bottom: -120px;
+  }
+  
+  .overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+  
+  .headline {
+    font-size: 20px;
+  }
+  
+  .landing-nav {
+    padding: 20px 20px !important;
+    background-color: white !important;
+  }
+  
+  .landing-button {
+    margin: 5px 5px;
+  }
+  
+  .about {
+    background-color: rgba(240, 240, 240, 0.616);
+    width: 100%;
+    padding: 30px 100px 30px 100px;
+  }
+  
+  .about-cards {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .about-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 0px 40px;
+  }
+
+  .about-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 0px 40px;
+  }
+  
+  .about-icons {
+    border: 2px solid rgb(30, 44, 92);
+    border-radius: 100px;
+    overflow: visible;
+    padding: 11px;
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+  
+.pricing{
+  width: 100%;
+  padding: 30px 100px 30px 100px;
+}
+
+  .footer {
+    background-color: rgba(238, 238, 238, 0.616);
+    width: 100%;
+    height: 120px;
+    padding: 30px 100px 30px 100px;
+    /* border-top: 2px solid rgb(207, 207, 207); */
+  }
