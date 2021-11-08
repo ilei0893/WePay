@@ -8,7 +8,7 @@ export default class EmployeeTable extends Component {
     super();
     this.state = {
       data: [],
-      pastdata:[],
+      pastdata: [],
       loading: true,
       isEveryEmployee: true,
     };
@@ -49,8 +49,6 @@ export default class EmployeeTable extends Component {
           data: temp,
         });
       });
-
-      console.log(this.state.data);
     });
   }
 
@@ -83,8 +81,6 @@ export default class EmployeeTable extends Component {
           pastdata: temp,
         });
       });
-
-      console.log(this.state.pastdata);
     });
   }
 
@@ -101,7 +97,9 @@ export default class EmployeeTable extends Component {
     if (this.state.isEveryEmployee === true) {
       return (
         <>
-          <Button onClick={this.handleClick}>Past Employees</Button>
+          <Button onClick={this.handleClick} style={{ marginBottom: "10px" }}>
+            Past Employees
+          </Button>
           <Card>
             <Table hover>
               <thead>
@@ -119,24 +117,26 @@ export default class EmployeeTable extends Component {
         </>
       );
     } else {
-      return(
+      return (
         <>
-        <Button onClick={this.handleClick}>Current Employees</Button>
-        <Card>
-          <Table hover>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>ReasonOfLeaving</th>
-              </tr>
-            </thead>
-            <tbody>{this.state.pastdata}</tbody>
-          </Table>
-        </Card>
-      </>
-      )
+          <Button onClick={this.handleClick} style={{ marginBottom: "10px" }}>
+            Current Employees
+          </Button>
+          <Card>
+            <Table hover>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Position</th>
+                  <th>ReasonOfLeaving</th>
+                </tr>
+              </thead>
+              <tbody>{this.state.pastdata}</tbody>
+            </Table>
+          </Card>
+        </>
+      );
     }
   }
 }

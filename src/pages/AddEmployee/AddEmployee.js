@@ -27,11 +27,8 @@ export default class AddEmployee extends Component {
 
   handleChange(event) {
     const target = event.target;
-    console.log(target);
     const value = target.type === "radio" ? target.checked : target.value;
-    console.log(value);
     const name = target.name;
-    console.log(name);
     this.setState({
       [name]: value,
     });
