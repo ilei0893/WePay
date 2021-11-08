@@ -5,15 +5,15 @@ import "./PayrollItem.css";
 export default function PayrollItem(props) {
   return (
     <li>
-        <div>
-            <div className="">
-              <img className="payroll-img" src={props.image} alt={props.name} />
-              <h3>{props.name}</h3>
-              <h5>Salary: ${props.salary}</h5>
-              <h5>Taxes: ${props.taxes}</h5>
-              <h5>Earnings: ${props.earnings}</h5>
-            </div>
+        <div className="salary-item">
+          <img className="payroll-img" src={props.image} alt={props.name} />
+          <div className="salary-item-desc">
+            <h5>{props.name}</h5>
+            Salary: ${props.salary} <br />
+            Taxes: ${props.taxes} <br />
+            Earnings: ${props.earnings}
+          </div>
         </div>
     </li>
-  )
+  );
 }

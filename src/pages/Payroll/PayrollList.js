@@ -16,20 +16,22 @@ export default function PayrollList(props) {
     );
   }
   return (
-      <Container>
-    <ul className="users-list">
+    <Container>
       {props.items.map((user) => (
+        <div className="users-list">
           <Card>
-        <PayrollItem
-          key={user.id}
-          id={user.id}
-          image={user.image}
-          name={user.name}
-          salary={user.salary}
-        />
-        </Card>
+            <Card.Body>
+              <PayrollItem
+                key={user.id}
+                id={user.id}
+                image={user.image}
+                name={user.name}
+                salary={user.salary}
+              />
+            </Card.Body>
+          </Card>
+        </div>
       ))}
-    </ul>
     </Container>
   );
 }
