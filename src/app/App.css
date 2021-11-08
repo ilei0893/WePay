@@ -1,0 +1,28 @@
+/* layout.js css */
+.sidebar {
+    height: 100vh !important;
+  }
+  
+  .test {
+    display: flex;
+  }
+  
+  .main {
+    flex-basis: 0;
+    flex-grow: 999;
+  }
+  
+  .toggle-button {
+    margin-left: 10px;
+    margin-right: 20px;
+  }
+  
+  .toggle-button:hover {
+    cursor: pointer;
+  }
+  
+  /* custom bootstrap */
+  .row {
+    margin: 10px;
+  }
+  
