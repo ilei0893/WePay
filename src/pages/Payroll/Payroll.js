@@ -14,7 +14,7 @@ const USERS = [
       "https://i1.wp.com/www.natureswaycolonic.co.uk/wp-content/uploads/2018/10/avatar-anonymous-300x300.png",
     salary: 123242,
     earnings: 10000,
-    taxes: 9997,
+    taxes: 0,
   },
   {
     id: "u2",
