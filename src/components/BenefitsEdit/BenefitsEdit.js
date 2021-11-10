@@ -10,6 +10,7 @@ export default class BenefitsEdit extends Component {
   render() {
     return (
       <Container>
+        <h3>Editing Employee Benefits</h3>
         <Form>
           <Form.Group>
             <Form.Label> PTO </Form.Label>
@@ -43,6 +44,7 @@ export default class BenefitsEdit extends Component {
               onChange={this.props.handleChange}
             />
           </Form.Group>
+          <br />
           <Button
             variant="primary"
             type="submit"

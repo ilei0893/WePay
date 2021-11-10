@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Col, Row, Button, Form } from "react-bootstrap";
-import axios from "axios";
+import './EmployeeSearch.css'
 
 export default class EmployeeSearch extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class EmployeeSearch extends Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Last 4 digtits of SSN</Form.Label>
+                    <Form.Label>Last 4 digits of SSN</Form.Label>
                     <Form.Control
                       name="SSN"
                       type="text"
@@ -67,7 +67,7 @@ export default class EmployeeSearch extends Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Last 4 digtits of SSN</Form.Label>
+                    <Form.Label>Last 4 digits of SSN</Form.Label>
                     <Form.Control
                       name="SSN"
                       type="text"
@@ -108,7 +108,7 @@ export default class EmployeeSearch extends Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Last 4 digtits of SSN</Form.Label>
+                    <Form.Label>Last 4 digits of SSN</Form.Label>
                     <Form.Control
                       name="SSN"
                       type="text"
@@ -126,7 +126,7 @@ export default class EmployeeSearch extends Component {
                   </Button>
                 </Form>
               </Row>
-              <Row>{this.props.data}</Row>
+              <Row className="employeeInformation">{this.props.data}</Row>
             </Col>
           </Container>
         </div>
