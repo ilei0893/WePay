@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import Calendar from "react-calendar";
 import {EmployeeTable } from '../../components'
+import axios from "axios";
 //css
 import "./Dashboard.css";
 import 'react-calendar/dist/Calendar.css';
-//img
-import placeholder from "../../assets/image-placeholder.jpg";
+
 //DUMMY DATA
 const USER = {
   id: "u1",
@@ -14,14 +14,33 @@ const USER = {
   image:
     "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png",
   status: "hr",
-  position: "Manager",
+  position: "HR",
   company: "Chase",
 };
 export default class Dashboard extends Component {
   state = {
+    totalEmployees: 0,
+    totalNeedsReviewed: 0,
     date: new Date(),
   };
   
+  componentDidMount(){
+    axios.get("http://localhost:3001/getemployeecount").then(response => {
+      let num = response.data[0].TOTAL
+      this.setState({
+        totalEmployees: num
+      })
+    })
+    ///totalneedsreviewed
+
+    axios.get("http://localhost:3001/totalneedsreviewed").then(response => {
+      let num = response.data[0].TOTAL_STATUS
+      this.setState({
+        totalNeedsReviewed: num
+      })
+    })
+  }
+
   onChange = (date) => this.setState({ date });
 
   render() {
@@ -44,7 +63,7 @@ export default class Dashboard extends Component {
                     </Col>
                     <Col>
                       <Card.Body style={{ marginLeft: 30 }}>
-                        <Card.Title>{USER.name}</Card.Title>
+                        <Card.Title>Welcome, {USER.name}!</Card.Title>
                         <Card.Text>Position: {USER.position}</Card.Text>
                         <Card.Text>Company: {USER.company}</Card.Text>
                       </Card.Body>
@@ -55,30 +74,26 @@ export default class Dashboard extends Component {
             </Row>
             <Row>
               <Col>
-              {/* Added static values for Applications and Needs Approval, for now */}
                 <div className="empty-box1 text-center mx-auto">
-                  Applications: 
+                  Total Employees 
                   <div className="text-center">
-                    <h4>10</h4>
+                    <h4>{this.state.totalEmployees}</h4>
                   </div>
                 </div>
                 <div className="empty-box1 text-center mx-auto">
-                  Needs Approval: 10
+                  Needs Approval
                   <div className="text-center">
-                    <h4>10</h4>
+                    <h4>{this.state.totalNeedsReviewed}</h4>
                   </div>
-                </div>
-              </Col>
-              <Col>
-              <EmployeeTable />
-              </Col>
-              <Col>
-                <div className="empty-box2 mx-auto">
+                  <div className="empty-box2 mx-auto">
                   <Calendar onChange={this.onChange} value={this.state.date} />
                 </div>
+                </div>
+              </Col>
+              <Col xs={8}>
+              <EmployeeTable />
               </Col>
             </Row>
-
           </Container>
         </div>
       );
