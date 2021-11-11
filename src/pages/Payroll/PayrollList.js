@@ -6,6 +6,7 @@ import "./PayrollList.css";
 
 export default function PayrollList(props) {
   if (props.items.length === 0) {
+
     return (
       <Card>
         <Card.Body>This is some text within a card body.</Card.Body>
@@ -15,9 +16,14 @@ export default function PayrollList(props) {
       </Card>
     );
   }
+
+
+  
   return (
+    
     <Container>
       {props.items.map((user) => (
+        
         <div className="users-list">
           <Card>
             <Card.Body>
@@ -27,6 +33,8 @@ export default function PayrollList(props) {
                 image={user.image}
                 name={user.name}
                 salary={user.salary}
+                oasdiTaxes={user.salary * 0.062}
+                hiTaxes={user.salary * 0.0145}
               />
             </Card.Body>
           </Card>
@@ -34,4 +42,5 @@ export default function PayrollList(props) {
       ))}
     </Container>
   );
+      
 }
