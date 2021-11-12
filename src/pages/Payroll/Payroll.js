@@ -7,7 +7,6 @@ import * as response from "../../scripts/getResponse"
 //css
 import "./Payroll.css";
 import "react-calendar/dist/Calendar.css";
-
 export default class Payroll extends Component {
   constructor(){
     super();
