@@ -32,9 +32,9 @@ export default function PayrollList(props) {
     fed = (props.salary * .37) + 156235;
   }
   return (
-      <Container>
-    <ul className="users-list">
+    <Container>
       {props.items.map((user) => (
+        <div className="users-list">
           <Card>
         <PayrollItem
           key={user.id}
@@ -47,8 +47,8 @@ export default function PayrollList(props) {
           fedTaxes={fed}
         />
         </Card>
+        </div>
       ))}
-    </ul>
     </Container>
   );
 }

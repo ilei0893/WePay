@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Container, Col } from "react-bootstrap";
+import { Form, Button, Container, Col as Col, Row } from "react-bootstrap";
 import axios from "axios";
 export default class AddEmployee extends Component {
   constructor() {
@@ -10,10 +10,13 @@ export default class AddEmployee extends Component {
       SSN: "",
       phoneNum: "",
       address: "",
+      city: "",
+      state: "NY",
+      zip: "",
       salary: "",
       position: "",
-      workState: "",
-      livingState: "",
+      workState: "NY",
+      livingState: "NY",
       PTO: "",
       Health_Insurance: "",
       Food_Stipend: "",
@@ -27,11 +30,8 @@ export default class AddEmployee extends Component {
 
   handleChange(event) {
     const target = event.target;
-    console.log(target);
     const value = target.type === "radio" ? target.checked : target.value;
-    console.log(value);
     const name = target.name;
-    console.log(name);
     this.setState({
       [name]: value,
     });
@@ -49,7 +49,7 @@ export default class AddEmployee extends Component {
       name: this.state.firstName + " " + this.state.lastName,
       SSN: this.state.SSN,
       phoneNum: this.state.phoneNum,
-      address: this.state.address,
+      address: this.state.address + " " + this.state.city + ", " + this.state.state + " " + this.state.zip,
       salary: this.state.salary,
       position: this.state.position,
       workState: this.state.workState,
@@ -83,7 +83,7 @@ export default class AddEmployee extends Component {
       return (
         <div>
           <Container>
-            <Col md={{ span: 4, offset: 3 }}>
+            <Col md={{ span: 6, offset: 3 }}>
               <h1>Add a new employee</h1>
               <Button variant="primary" type="submit" href="/employment">
                 Go Back
@@ -127,16 +127,55 @@ export default class AddEmployee extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formAddress">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control
-                    name="address"
-                    type="text"
-                    placeholder="00 Smiths Place"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
+                <Row>
+                  <Form.Group className="mb-3" controlId="formAddress">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                      name="address"
+                      type="text"
+                      placeholder="00 Smiths Place"
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formAddress">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control
+                        name="city"
+                        type="text"
+                        placeholder="Staten Island"
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formAddress">
+                      <Form.Label>State</Form.Label>
+                      <Form.Control
+                        name="state"
+                        type="text"
+                        defaultValue="NY"
+                        onChange={this.handleChange}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formAddress">
+                      <Form.Label>Zip Code</Form.Label>
+                      <Form.Control
+                        name="zip"
+                        type="text"
+                        placeholder="00000"
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
                 <Form.Group className="mb-3" controlId="formPhoneNumber">
                   <Form.Label>Phone Number</Form.Label>
                   <Form.Control
@@ -150,9 +189,8 @@ export default class AddEmployee extends Component {
                 <Form.Group className="mb-3" controlId="formSalary">
                   <Form.Label>Salary</Form.Label>
                   <Form.Control
-                    name="salary "
-                    type="text"
-                    placeholder="$50,000"
+                    name="salary"
+                    placeholder="50000"
                     onChange={this.handleChange}
                     required
                   />
@@ -167,26 +205,34 @@ export default class AddEmployee extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formWorkState">
-                  <Form.Label>Work State</Form.Label>
-                  <Form.Control
-                    name="workState"
-                    type="text"
-                    placeholder="NY"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Living State</Form.Label>
-                  <Form.Control
-                    name="livingState"
-                    type="text"
-                    placeholder="NY"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formWorkState">
+                      <Form.Label>Work State</Form.Label>
+                      <Form.Control
+                        name="workState"
+                        type="text"
+                        defaultValue="NY"
+                        onChange={this.handleChange}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formLivingState">
+                      <Form.Label>Living State</Form.Label>
+                      <Form.Control
+                        name="livingState"
+                        type="text"
+                        defaultValue="NY"
+                        onChange={this.handleChange}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
                 <h4>Benefits</h4>
                 <Form.Group className="mb-3" controlId="formLivingState">
                   <Form.Label>PTO</Form.Label>
