@@ -17,8 +17,6 @@ export default function PayrollList(props) {
     );
   }
 
-
-  
   return (
     
     <Container>
@@ -44,3 +42,9 @@ export default function PayrollList(props) {
   );
       
 }
+//taxes that need to be listed 
+/*
+FICA-OASDI: 6.2%
+FICA-HI: 1.45%
+FEDERAL: 
+*/

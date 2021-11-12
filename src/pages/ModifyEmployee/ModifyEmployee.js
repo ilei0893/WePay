@@ -6,6 +6,7 @@ import {
   EmployeeEdit,
   BenefitsEdit,
   EmployeeToast,
+  MarkPastEmployee,
 } from "../../components";
 import * as response from "../../scripts/getResponse";
 
@@ -21,6 +22,7 @@ export default class ModifyEmployee extends Component {
       livingState: "",
       phoneNum: "",
       position: "",
+      email: "",
       data: [],
       PTO: "",
       Health_Insurance: "",
@@ -31,10 +33,12 @@ export default class ModifyEmployee extends Component {
       isEdit: false,
       isEditSubmitted: false,
       isEditBenefits: false,
+      isPastEmployee: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleMarkPastEmployee = this.handleMarkPastEmployee.bind(this);
     this.handleBenefitsEdit = this.handleBenefitsEdit.bind(this);
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
     this.handleBenefitsSubmit = this.handleBenefitsSubmit.bind(this);
@@ -42,23 +46,23 @@ export default class ModifyEmployee extends Component {
     this.closeToast = this.closeToast.bind(this);
   }
 
-  //get input employee search form
+  //get input from employee search form
   handleChange(event) {
     const target = event.target;
-    console.log(target);
     const value = target.type === "radio" ? target.checked : target.value;
-    console.log(value);
     const name = target.name;
     this.setState({
       [name]: value,
     });
   }
 
+  //when handle edit is clicked, get data from employee and set isEdit to true
   handleEdit(event) {
     event.preventDefault();
     this.setState({
       isEdit: true,
       isEditBenefits: false,
+      isPastEmployee: false,
     });
 
     response.getEmployee(this.state.fullName, this.state.SSN).then((res) => {
@@ -93,11 +97,21 @@ export default class ModifyEmployee extends Component {
     });
   }
 
+  handleMarkPastEmployee(event) {
+    event.preventDefault();
+    this.setState({
+      isEdit: false,
+      isEditBenefits: false,
+      isPastEmployee: true,
+    });
+  }
+
   handleEditSubmit(event) {
     event.preventDefault();
     let data = {
       name: this.state.fullName,
       SSN: this.state.SSN,
+      email: this.state.email,
       phoneNum: this.state.phoneNum,
       address: this.state.address,
       salary: this.state.salary,
@@ -132,7 +146,7 @@ export default class ModifyEmployee extends Component {
       PTO: this.props.PTO,
       Health_Insurance: this.props.Health_Insurance,
       Food_Stipend: this.props.Food_Stipend,
-      Dental_Insurance: this.props.Dental_Insurance
+      Dental_Insurance: this.props.Dental_Insurance,
     };
 
     const config = {
@@ -167,27 +181,41 @@ export default class ModifyEmployee extends Component {
         });
         res.data.map((list) => {
           employee.push(
-            <div>
-              <h4>{list.Name}</h4>
-              <p>Position: {list.Position}</p>
-              <Button onClick={this.handleEdit}>
-                Edit Personal Information
-              </Button>
-              <br />
-              <br />
-              <Button onClick={this.handleBenefitsEdit}>
-                Edit Benefits
-              </Button>{" "}
-              <br />
-              <br />
-              <Button>Mark as past employee</Button>
+            <div key={list}>
+              <Row>
+                <Col>
+                  <h4>{list.Name}</h4>
+                  <p>Position: {list.Position}</p>
+                  <p>Phone Number: {list.Phone_Number}</p>
+                  <p>Salary: {list.Salary}</p>
+                  <p>Email: {list.Email}</p>
+                </Col>
+                <Col>
+                  <Button onClick={this.handleEdit}>
+                    Edit Personal Information
+                  </Button>
+                  <br />
+                  <br />
+                  <Button onClick={this.handleBenefitsEdit}>
+                    Edit Benefits
+                  </Button>
+                  <br />
+                  <br />
+                  <Button onClick={this.handleMarkPastEmployee}>
+                    Mark as past employee
+                  </Button>
+                </Col>
+              </Row>
             </div>
           );
           this.setState({
             data: employee,
+            phoneNum: list.Phone_Number,
+            salary: list.Salary,
+            position: list.Position,
+            email: list.Email,
           });
         });
-        console.log(this.state.data);
       }
     });
   }
@@ -197,7 +225,11 @@ export default class ModifyEmployee extends Component {
   }
 
   render() {
-    if (this.state.isEdit === false && this.state.isEditBenefits === false) {
+    if (
+      this.state.isEdit === false &&
+      this.state.isEditBenefits === false &&
+      this.state.isPastEmployee === false
+    ) {
       return (
         <EmployeeSearch
           isFound={this.state.isFound}
@@ -227,6 +259,7 @@ export default class ModifyEmployee extends Component {
             handleEditSubmit={this.handleEditSubmit}
             fullName={this.state.fullName}
             address={this.state.address}
+            email={this.state.email}
             salary={this.state.salary}
             workState={this.state.workState}
             livingState={this.state.livingState}
@@ -260,6 +293,29 @@ export default class ModifyEmployee extends Component {
             Food_Stipend={this.state.Food_Stipend}
             Dental_Insurance={this.state.Dental_Insurance}
             isEditSubmitted={this.state.isEditSubmitted}
+          />
+        </>
+      );
+    } else if (this.state.isPastEmployee === true) {
+      return (
+        <>
+          <EmployeeSearch
+            isFound={this.state.isFound}
+            isSubmitted={this.state.isSubmitted}
+            data={this.state.data}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            handleEdit={this.handleEdit}
+          />
+          <EmployeeToast
+            closeToast={this.closeToast}
+            isEditSubmitted={this.state.isEditSubmitted}
+          />
+          <MarkPastEmployee
+            fullName={this.state.fullName}
+            salary={this.state.salary}
+            position={this.state.position}
+            phoneNum={this.state.phoneNum}
           />
         </>
       );

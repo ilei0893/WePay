@@ -11,3 +11,4 @@ export { default as EmployeeEdit } from  './EmployeeEdit/EmployeeEdit';
 export { default as BenefitsTable } from  './BenefitsTable/BenefitsTable';
 export { default as BenefitsEdit } from  './BenefitsEdit/BenefitsEdit';
 export { default as EmployeeToast } from  './Toast/EmployeeToast';
+export { default as MarkPastEmployee } from  './MarkPastEmployee/MarkPastEmployee';

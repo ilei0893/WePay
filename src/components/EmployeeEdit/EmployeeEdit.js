@@ -9,6 +9,7 @@ export default class EmployeeEdit extends Component {
   render() {
     return (
         <Container>
+          <h3>Modify Employee Information</h3>
           <Form>
             <Form.Group>
               <Form.Label>Full Name</Form.Label>
@@ -19,9 +20,17 @@ export default class EmployeeEdit extends Component {
               />
             </Form.Group>
             <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                name="email"
+                defaultValue={this.props.email}
+                onChange={this.props.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
               <Form.Label>Salary</Form.Label>
               <Form.Control
-                name="Salary"
+                name="salary"
                 defaultValue={this.props.salary}
                 onChange={this.props.handleChange}
               />
@@ -50,22 +59,7 @@ export default class EmployeeEdit extends Component {
                 onChange={this.props.handleChange}
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Work State</Form.Label>
-              <Form.Control
-                name="workState"
-                defaultValue={this.props.workState}
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Living State</Form.Label>
-              <Form.Control
-                name="livingState"
-                defaultValue={this.props.livingState}
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
+            <br />
             <Button
               variant="primary"
               type="submit"

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Image, Modal, Button, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import "./PayrollItem.css";
-
 export default function PayrollItem(props) {
   const [show, setShow] = useState(false);
 
