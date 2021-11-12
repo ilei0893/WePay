@@ -10,6 +10,7 @@ import Benefits from "../pages/Benefits/Benefits";
 import ModifyEmployee from "../pages/ModifyEmployee/ModifyEmployee";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PayCheck from "../pages/Paycheck/PayCheck";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
         </Route>
         <Route path="/benefits">
           <Layout page={<Benefits />} />
+        </Route>
+        <Route path="/check">
+          <Layout page={<PayCheck />} />
         </Route>
       </Switch>
     </Router>
