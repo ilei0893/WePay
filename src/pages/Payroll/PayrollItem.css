@@ -6,8 +6,18 @@
 
 .salary-item {
   display: flex;
+  align-items: center;
 }
 
+.salary-button{
+  display:flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
+.salary-button > * {
+  margin: 5px 0;
+}
 .salary-item-desc {
     padding-left: 20px;
   }

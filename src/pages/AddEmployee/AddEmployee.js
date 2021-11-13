@@ -8,6 +8,7 @@ export default class AddEmployee extends Component {
       firstName: "",
       lastName: "",
       SSN: "",
+      email: "",
       phoneNum: "",
       address: "",
       city: "",
@@ -18,19 +19,25 @@ export default class AddEmployee extends Component {
       workState: "NY",
       livingState: "NY",
       PTO: "",
-      Health_Insurance: "",
-      Food_Stipend: "",
-      Dental_Insurance: "",
+      HealthInsurance: false,
+      FoodStipend: "",
+      DentalInsurance: "",
       isSubmitted: false,
       validated: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
 
+    //refs
+    this.ptoInput = React.createRef();
+    this.healthInsuranceInput = React.createRef();
+    this.foodStipendInput = React.createRef();
+    this.dentalInsuranceInput = React.createRef();
+  }
+  
   handleChange(event) {
     const target = event.target;
-    const value = target.type === "radio" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -39,6 +46,7 @@ export default class AddEmployee extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -47,6 +55,7 @@ export default class AddEmployee extends Component {
 
     let data = {
       name: this.state.firstName + " " + this.state.lastName,
+      email: this.state.email,
       SSN: this.state.SSN,
       phoneNum: this.state.phoneNum,
       address: this.state.address + " " + this.state.city + ", " + this.state.state + " " + this.state.zip,
@@ -54,10 +63,10 @@ export default class AddEmployee extends Component {
       position: this.state.position,
       workState: this.state.workState,
       livingState: this.state.livingState,
-      PTO: this.state.PTO,
-      Health_Insurance: this.state.Health_Insurance,
-      Food_Stipend: this.state.Food_Stipend,
-      Dental_Insurance: this.state.Dental_Insurance,
+      PTO: this.ptoInput.current.value,
+      Health_Insurance: this.healthInsuranceInput.current.value,
+      Food_Stipend: this.foodStipendInput.current.value,
+      Dental_Insurance: this.dentalInsuranceInput.current.value,
     };
 
     const config = {
@@ -83,7 +92,7 @@ export default class AddEmployee extends Component {
       return (
         <div>
           <Container>
-            <Col md={{ span: 6, offset: 3 }}>
+            <Col md={{ span: 8, offset: 2 }}>
               <h1>Add a new employee</h1>
               <Button variant="primary" type="submit" href="/employment">
                 Go Back
@@ -94,6 +103,9 @@ export default class AddEmployee extends Component {
                 validated={this.state.validated}
                 onSubmit={this.handleSubmit}
               >
+                <Row>
+                  <Col>
+                  <h4>Personal Information</h4>
                 <Form.Group className="mb-3" controlId="formFirstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
@@ -103,9 +115,6 @@ export default class AddEmployee extends Component {
                     onChange={this.handleChange}
                     required
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Please input a name.
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLastName">
                   <Form.Label>Last Name</Form.Label>
@@ -113,6 +122,16 @@ export default class AddEmployee extends Component {
                     name="lastName"
                     type="text"
                     placeholder="Last Name"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formSSN">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    name="email"
+                    type="text"
+                    placeholder="email@gmail.com"
                     onChange={this.handleChange}
                     required
                   />
@@ -233,50 +252,63 @@ export default class AddEmployee extends Component {
                     </Form.Group>
                   </Col>
                 </Row>
+                </Col>
+                <Col>
                 <h4>Benefits</h4>
                 <Form.Group className="mb-3" controlId="formLivingState">
                   <Form.Label>PTO</Form.Label>
                   <Form.Control
                     name="PTO"
                     type="text"
-                    placeholder="0"
-                    onChange={this.handleChange}
+                    value="240"
+                    ref={this.ptoInput}
                     required
+                    disabled
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Health Insurance</Form.Label>
+                  <Form.Label>Health Insurance ($100)</Form.Label>
                   <Form.Control
                     name="Health_Insurance"
                     type="text"
-                    placeholder="$0"
-                    onChange={this.handleChange}
+                    value={this.state.HealthInsurance ? '100' : '0'}
+                    ref={this.healthInsuranceInput}
                     required
+                    disabled
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Food Stipend</Form.Label>
+                  <Form.Label>Food Stipend ($50)</Form.Label>
                   <Form.Control
                     name="Food_Stipend"
                     type="text"
-                    placeholder="$0"
-                    onChange={this.handleChange}
+                    value={this.state.FoodStipend ? '50' : '0'}
+                    ref={this.foodStipendInput}
                     required
+                    disabled
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Dental Insurance</Form.Label>
+                  <Form.Label>Dental Insurance ($15)</Form.Label>
                   <Form.Control
                     name="Dental_Insurance"
                     type="text"
-                    placeholder="$0"
-                    onChange={this.handleChange}
+                    value={this.state.DentalInsurance ? '15' : '0'}
+                    ref={this.dentalInsuranceInput}
                     required
+                    disabled
                   />
                 </Form.Group>
+                Please select which benefits the employee would like.
+                <Form.Check name='HealthInsurance' type='checkbox' label='Health Insurance' onChange={this.handleChange} />
+                <Form.Check name='FoodStipend' type='checkbox' label='Food Stipend' onChange={this.handleChange} />
+                <Form.Check name='DentalInsurance' type='checkbox' label='Dental Insurance' onChange={this.handleChange} />
+                <br />
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
+                </Col>
+                </Row>
               </Form>
             </Col>
           </Container>

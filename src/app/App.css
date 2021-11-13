@@ -10,8 +10,16 @@
   .main {
     flex-basis: 0;
     flex-grow: 999;
+    margin-left: 270px;
+    transition: .16s linear all;
   }
-  
+
+  .main-collapsed {
+    flex-basis: 0;
+    flex-grow: 999;
+    margin-left: 80px !important;
+    transition: .16s linear all;
+  }
   .toggle-button {
     margin-left: 10px;
     margin-right: 20px;

@@ -17,6 +17,13 @@ export default class Layout extends Component {
     this.setState({
       isCollapsed: !this.state.isCollapsed,
     });
+
+    const main = document.querySelector('.main');
+    if(this.state.isCollapsed == false){
+      main.classList.add('main-collapsed');
+    } else {
+      main.classList.remove('main-collapsed');
+    }
   };
 
   render() {

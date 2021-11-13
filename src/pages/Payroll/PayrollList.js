@@ -6,7 +6,6 @@ import "./PayrollList.css";
 
 export default function PayrollList(props) {
   if (props.items.length === 0) {
-
     return (
       <Card>
         <Card.Body>This is some text within a card body.</Card.Body>
@@ -18,10 +17,8 @@ export default function PayrollList(props) {
   }
 
   return (
-    
     <Container>
       {props.items.map((user) => (
-        
         <div className="users-list">
           <Card>
             <Card.Body>
@@ -40,9 +37,8 @@ export default function PayrollList(props) {
       ))}
     </Container>
   );
-      
 }
-//taxes that need to be listed 
+//taxes that need to be listed
 /*
 FICA-OASDI: 6.2%
 FICA-HI: 1.45%
