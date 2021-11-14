@@ -203,11 +203,6 @@ export default class LandingPage extends Component {
             <NavbarBrand href="/">WePAY</NavbarBrand>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link>
-                  <Link to="/dashboard">Testing</Link>
-                </Nav.Link>
-                <Nav.Link href="#aboutus">About Us</Nav.Link>
               </Nav>
               <Button
                 className="landing-button"
@@ -278,8 +273,6 @@ export default class LandingPage extends Component {
               <h6 style={{textAlign: "center"}}>$25/month</h6>
               <ul>
                 <li>- Payroll Service</li>
-                <li>- Auto Payroll</li>
-                <li>- 401k</li>
                 <li>- Advanced Product Support</li>
               </ul>
             </div>
