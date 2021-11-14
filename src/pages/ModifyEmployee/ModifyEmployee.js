@@ -34,6 +34,7 @@ export default class ModifyEmployee extends Component {
       isEditSubmitted: false,
       isEditBenefits: false,
       isPastEmployee: false,
+      validatedSearch: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -142,13 +143,13 @@ export default class ModifyEmployee extends Component {
       isEditSubmitted: true,
     });
     let data = {
-      name: this.props.fullName,
-      PTO: this.props.PTO,
-      Health_Insurance: this.props.Health_Insurance,
-      Food_Stipend: this.props.Food_Stipend,
-      Dental_Insurance: this.props.Dental_Insurance,
+      name: this.state.fullName,
+      PTO: this.state.PTO,
+      Health_Insurance: this.state.Health_Insurance,
+      Food_Stipend: this.state.Food_Stipend,
+      Dental_Insurance: this.state.Dental_Insurance,
     };
-
+    console.log(data)
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -165,6 +166,13 @@ export default class ModifyEmployee extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     let employee = [];
     response.getEmployee(this.state.fullName, this.state.SSN).then((res) => {
       if (res.data.length === 0) {
@@ -237,6 +245,7 @@ export default class ModifyEmployee extends Component {
           data={this.state.data}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          validated={this.state.validatedSearch}
         />
       );
     } else if (this.state.isEdit === true) {
@@ -249,6 +258,7 @@ export default class ModifyEmployee extends Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleEdit={this.handleEdit}
+            validated={this.state.validatedSearch}
           />
           <EmployeeToast
             closeToast={this.closeToast}
@@ -278,6 +288,7 @@ export default class ModifyEmployee extends Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleEdit={this.handleEdit}
+            validated={this.state.validatedSearch}
           />
           <EmployeeToast
             closeToast={this.closeToast}
@@ -306,6 +317,7 @@ export default class ModifyEmployee extends Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleEdit={this.handleEdit}
+            validated={this.state.validatedSearch}
           />
           <EmployeeToast
             closeToast={this.closeToast}

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Form, Button, Container, Col as Col, Row } from "react-bootstrap";
+import {
+  Form,
+  InputGroup,
+  Button,
+  Container,
+  Col as Col,
+  Row,
+} from "react-bootstrap";
 import axios from "axios";
 export default class AddEmployee extends Component {
   constructor() {
@@ -34,7 +41,7 @@ export default class AddEmployee extends Component {
     this.foodStipendInput = React.createRef();
     this.dentalInsuranceInput = React.createRef();
   }
-  
+
   handleChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -58,7 +65,14 @@ export default class AddEmployee extends Component {
       email: this.state.email,
       SSN: this.state.SSN,
       phoneNum: this.state.phoneNum,
-      address: this.state.address + " " + this.state.city + ", " + this.state.state + " " + this.state.zip,
+      address:
+        this.state.address +
+        " " +
+        this.state.city +
+        ", " +
+        this.state.state +
+        " " +
+        this.state.zip,
       salary: this.state.salary,
       position: this.state.position,
       workState: this.state.workState,
@@ -105,209 +119,267 @@ export default class AddEmployee extends Component {
               >
                 <Row>
                   <Col>
-                  <h4>Personal Information</h4>
-                <Form.Group className="mb-3" controlId="formFirstName">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    name="firstName"
-                    type="text"
-                    placeholder="First Name"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formLastName">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    name="lastName"
-                    type="text"
-                    placeholder="Last Name"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formSSN">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    name="email"
-                    type="text"
-                    placeholder="email@gmail.com"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formSSN">
-                  <Form.Label>SSN</Form.Label>
-                  <Form.Control
-                    name="SSN"
-                    type="text"
-                    placeholder="xxx-xx-xxxx"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Row>
-                  <Form.Group className="mb-3" controlId="formAddress">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      name="address"
-                      type="text"
-                      placeholder="00 Smiths Place"
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </Form.Group>
-                  <Col>
-                    <Form.Group className="mb-3" controlId="formAddress">
-                      <Form.Label>City</Form.Label>
+                    <h4>Personal Information</h4>
+                    <Form.Group className="mb-3" controlId="formFirstName">
+                      <Form.Label>First Name</Form.Label>
                       <Form.Control
-                        name="city"
+                        name="firstName"
                         type="text"
-                        placeholder="Staten Island"
+                        placeholder="First Name"
+                        pattern="[a-zA-Z]+"
                         onChange={this.handleChange}
                         required
                       />
+                      <Form.Text className="text-muted">
+                        Symbols and numbers are not allowed
+                      </Form.Text>
                     </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group className="mb-3" controlId="formAddress">
-                      <Form.Label>State</Form.Label>
+                    <Form.Group className="mb-3" controlId="formLastName">
+                      <Form.Label>Last Name</Form.Label>
                       <Form.Control
-                        name="state"
+                        name="lastName"
                         type="text"
-                        defaultValue="NY"
-                        onChange={this.handleChange}
-                        required
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group className="mb-3" controlId="formAddress">
-                      <Form.Label>Zip Code</Form.Label>
-                      <Form.Control
-                        name="zip"
-                        type="text"
-                        placeholder="00000"
+                        placeholder="Last Name"
+                        pattern="[a-zA-Z]+"
                         onChange={this.handleChange}
                         required
                       />
+                      <Form.Text className="text-muted">
+                        Symbols and numbers are not allowed
+                      </Form.Text>
                     </Form.Group>
-                  </Col>
-                </Row>
-                <Form.Group className="mb-3" controlId="formPhoneNumber">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    name="phoneNum"
-                    type="tel"
-                    placeholder="(xxx)-xxx-xxxx"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formSalary">
-                  <Form.Label>Salary</Form.Label>
-                  <Form.Control
-                    name="salary"
-                    placeholder="50000"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formPosition">
-                  <Form.Label>Position</Form.Label>
-                  <Form.Control
-                    name="position"
-                    type="text"
-                    placeholder="Manager"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <Row>
-                  <Col>
-                    <Form.Group className="mb-3" controlId="formWorkState">
-                      <Form.Label>Work State</Form.Label>
+                    <Form.Group className="mb-3" controlId="formSSN">
+                      <Form.Label>Email</Form.Label>
                       <Form.Control
-                        name="workState"
+                        name="email"
                         type="text"
-                        defaultValue="NY"
+                        placeholder="email@gmail.com"
+                        pattern=".+@gmail\.com"
                         onChange={this.handleChange}
                         required
-                        disabled
                       />
+                      <Form.Text className="text-muted">
+                        Must include @gmail.com
+                      </Form.Text>
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="formSSN">
+                      <Form.Label>SSN</Form.Label>
+                      <Form.Control
+                        name="SSN"
+                        type="text"
+                        placeholder="xxx-xx-xxxx"
+                        pattern="(^\d{3}-?\d{2}-?\d{4}$)"
+                        onChange={this.handleChange}
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        Must be in XXX-XX-XXX Format
+                      </Form.Text>
+                    </Form.Group>
+                    <Row>
+                      <Form.Group className="mb-3" controlId="formAddress">
+                        <Form.Label>Address</Form.Label>
+                        <Form.Control
+                          name="address"
+                          type="text"
+                          placeholder="00 Smiths Place"
+                          pattern="^[#.0-9a-zA-Z\s,-]+$"
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <Form.Text className="text-muted">
+                          Some symbols are not allowed
+                        </Form.Text>
+                      </Form.Group>
+                      <Col>
+                        <Form.Group className="mb-3" controlId="formAddress">
+                          <Form.Label>City</Form.Label>
+                          <Form.Control
+                            name="city"
+                            type="text"
+                            placeholder="Staten Island"
+                            pattern="^[a-zA-Z\s-]+$"
+                            onChange={this.handleChange}
+                            required
+                          />
+                        </Form.Group>
+                        <Form.Text className="text-muted">
+                          Symbols and numbers not allowed
+                        </Form.Text>
+                      </Col>
+                      <Col>
+                        <Form.Group className="mb-3" controlId="formAddress">
+                          <Form.Label>State</Form.Label>
+                          <Form.Control
+                            name="state"
+                            type="text"
+                            defaultValue="NY"
+                            onChange={this.handleChange}
+                            required
+                            disabled
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group className="mb-3" controlId="formAddress">
+                          <Form.Label>Zip Code</Form.Label>
+                          <Form.Control
+                            name="zip"
+                            type="text"
+                            placeholder="00000"
+                            pattern="[0-9]{5}"
+                            onChange={this.handleChange}
+                            required
+                          />
+                          <Form.Text className="text-muted">
+                            Format of the zip code should be 00000
+                          </Form.Text>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                    <Form.Group className="mb-3" controlId="formPhoneNumber">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control
+                        name="phoneNum"
+                        type="tel"
+                        placeholder="xxx-xxx-xxxx"
+                        onChange={this.handleChange}
+                        pattern="^[#.0-9a-zA-Z\s,-]+$"
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        Must be a US phone number
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formSalary">
+                      <Form.Label>Salary</Form.Label>
+                      <Form.Control
+                        name="salary"
+                        placeholder="50000"
+                        pattern="[0-9]+"
+                        onChange={this.handleChange}
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        Symbols and words are not allowed
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formPosition">
+                      <Form.Label>Position</Form.Label>
+                      <Form.Control
+                        name="position"
+                        type="text"
+                        placeholder="Manager"
+                        pattern="[a-zA-Z]+"
+                        onChange={this.handleChange}
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        Symbols and numbers are not allowed
+                      </Form.Text>
+                    </Form.Group>
+                    <Row>
+                      <Col>
+                        <Form.Group className="mb-3" controlId="formWorkState">
+                          <Form.Label>Work State</Form.Label>
+                          <Form.Control
+                            name="workState"
+                            type="text"
+                            defaultValue="NY"
+                            onChange={this.handleChange}
+                            required
+                            disabled
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formLivingState"
+                        >
+                          <Form.Label>Living State</Form.Label>
+                          <Form.Control
+                            name="livingState"
+                            type="text"
+                            defaultValue="NY"
+                            onChange={this.handleChange}
+                            required
+                            disabled
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
                   </Col>
                   <Col>
+                    <h4>Benefits</h4>
                     <Form.Group className="mb-3" controlId="formLivingState">
-                      <Form.Label>Living State</Form.Label>
+                      <Form.Label>PTO</Form.Label>
                       <Form.Control
-                        name="livingState"
+                        name="PTO"
                         type="text"
-                        defaultValue="NY"
-                        onChange={this.handleChange}
+                        value="240"
+                        ref={this.ptoInput}
                         required
                         disabled
                       />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="formLivingState">
+                      <Form.Label>Health Insurance ($100)</Form.Label>
+                      <Form.Control
+                        name="Health_Insurance"
+                        type="text"
+                        value={this.state.HealthInsurance ? "100" : "0"}
+                        ref={this.healthInsuranceInput}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formLivingState">
+                      <Form.Label>Food Stipend ($50)</Form.Label>
+                      <Form.Control
+                        name="Food_Stipend"
+                        type="text"
+                        value={this.state.FoodStipend ? "50" : "0"}
+                        ref={this.foodStipendInput}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formLivingState">
+                      <Form.Label>Dental Insurance ($15)</Form.Label>
+                      <Form.Control
+                        name="Dental_Insurance"
+                        type="text"
+                        value={this.state.DentalInsurance ? "15" : "0"}
+                        ref={this.dentalInsuranceInput}
+                        required
+                        disabled
+                      />
+                    </Form.Group>
+                    Please select which benefits the employee would like.
+                    <Form.Check
+                      name="HealthInsurance"
+                      type="checkbox"
+                      label="Health Insurance"
+                      onChange={this.handleChange}
+                    />
+                    <Form.Check
+                      name="FoodStipend"
+                      type="checkbox"
+                      label="Food Stipend"
+                      onChange={this.handleChange}
+                    />
+                    <Form.Check
+                      name="DentalInsurance"
+                      type="checkbox"
+                      label="Dental Insurance"
+                      onChange={this.handleChange}
+                    />
+                    <br />
+                    <Button variant="primary" type="submit">
+                      Submit
+                    </Button>
                   </Col>
-                </Row>
-                </Col>
-                <Col>
-                <h4>Benefits</h4>
-                <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>PTO</Form.Label>
-                  <Form.Control
-                    name="PTO"
-                    type="text"
-                    value="240"
-                    ref={this.ptoInput}
-                    required
-                    disabled
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Health Insurance ($100)</Form.Label>
-                  <Form.Control
-                    name="Health_Insurance"
-                    type="text"
-                    value={this.state.HealthInsurance ? '100' : '0'}
-                    ref={this.healthInsuranceInput}
-                    required
-                    disabled
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Food Stipend ($50)</Form.Label>
-                  <Form.Control
-                    name="Food_Stipend"
-                    type="text"
-                    value={this.state.FoodStipend ? '50' : '0'}
-                    ref={this.foodStipendInput}
-                    required
-                    disabled
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formLivingState">
-                  <Form.Label>Dental Insurance ($15)</Form.Label>
-                  <Form.Control
-                    name="Dental_Insurance"
-                    type="text"
-                    value={this.state.DentalInsurance ? '15' : '0'}
-                    ref={this.dentalInsuranceInput}
-                    required
-                    disabled
-                  />
-                </Form.Group>
-                Please select which benefits the employee would like.
-                <Form.Check name='HealthInsurance' type='checkbox' label='Health Insurance' onChange={this.handleChange} />
-                <Form.Check name='FoodStipend' type='checkbox' label='Food Stipend' onChange={this.handleChange} />
-                <Form.Check name='DentalInsurance' type='checkbox' label='Dental Insurance' onChange={this.handleChange} />
-                <br />
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-                </Col>
                 </Row>
               </Form>
             </Col>
