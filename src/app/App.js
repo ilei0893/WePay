@@ -10,14 +10,20 @@ import Benefits from "../pages/Benefits/Benefits";
 import ModifyEmployee from "../pages/ModifyEmployee/ModifyEmployee";
 
 import EmployeeLayout from "../employee-pages/EmployeeLayout";
-import EmployeeDashboard from "../employee-pages/Dashboard/EmployeeDashboard"
-import EmployeeView from "../employee-pages/EmployeeView/EmployeeView"
+import EmployeeDashboard from "../employee-pages/Dashboard/EmployeeDashboard";
+import EmployeeView from "../employee-pages/EmployeeView/EmployeeView";
 
 import "./App.css";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PayCheck from "../pages/Paycheck/PayCheck";
 
 function App() {
+  const [token, setToken] = useState();
+
+  if (!token) {
+    return <Home setToken={setToken} />;
+  }
   return (
     <Router>
       <Switch>
