@@ -63,14 +63,14 @@ export default class LandingPage extends Component {
     });
   }
   handleSubmit(event) {
-    alert(
-      "A name was submitted:" +
-        this.state.username +
-        " " +
-        this.state.password +
-        " " +
-        this.state.userType
-    );
+    // alert(
+    //   "A name was submitted:" +
+    //     this.state.username +
+    //     " " +
+    //     this.state.password +
+    //     " " +
+    //     this.state.userType
+    // );
     event.preventDefault();
   }
 
@@ -120,7 +120,8 @@ export default class LandingPage extends Component {
               <Button
                 variant="primary"
                 type="submit"
-                onClick={this.handleSubmit}
+                href="/dashboard"
+                // onClick={this.handleSubmit}
               >
                 Log In
               </Button>
@@ -165,7 +166,7 @@ export default class LandingPage extends Component {
                     onChange={this.handleChange}
                   />
                 </Form.Group>
-                <Form.Group>
+                {/* <Form.Group>
                   <Form.Label>User Type</Form.Label>
                   <FloatingLabel
                     controlId="select-type"
@@ -181,14 +182,15 @@ export default class LandingPage extends Component {
                       <option>HR</option>
                     </Form.Select>
                   </FloatingLabel>
-                </Form.Group>
+                </Form.Group> */}
                 <br />
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={this.handleSubmit}
+                  href="/employee-dashboard"
+                  // onClick={this.handleSubmit}
                 >
-                  Sign Up
+                  Log In
                 </Button>
               </Form>
             </Container>
@@ -212,14 +214,14 @@ export default class LandingPage extends Component {
                 variant="primary"
                 onClick={this.handleSignUpModal}
               >
-                Sign Up
+                Employee Log In
               </Button>
               <Button
                 className="landing-button"
                 variant="primary"
                 onClick={this.handleLoginModal}
               >
-                Log In
+                HR Log In
               </Button>
             </Navbar.Collapse>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

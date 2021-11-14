@@ -22,7 +22,6 @@ export default class MarkPastEmployee extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
     console.log(this.state.reason);
     console.log(this.props.fullName);
 

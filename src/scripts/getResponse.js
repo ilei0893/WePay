@@ -63,3 +63,22 @@ export function getBenefits(fullName){
           return this.response;
         });
 }
+
+export function getEmployeePaychecks(fullName){
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let data = {
+    name: fullName,
+  };
+
+  return axios
+  .post("http://localhost:3001/getEmployeePaychecks", data, config)
+  .then((response) => {
+    this.response = response;
+    return this.response;
+  });
+}

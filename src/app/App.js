@@ -8,6 +8,10 @@ import Inbox from "../pages/Inbox/Inbox";
 import Payroll from "../pages/Payroll/Payroll";
 import Benefits from "../pages/Benefits/Benefits";
 import ModifyEmployee from "../pages/ModifyEmployee/ModifyEmployee";
+
+import EmployeeLayout from "../employee-pages/EmployeeLayout";
+import EmployeeDashboard from "../employee-pages/Dashboard/EmployeeDashboard"
+
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PayCheck from "../pages/Paycheck/PayCheck";
@@ -42,6 +46,9 @@ function App() {
         </Route>
         <Route path="/check">
           <Layout page={<PayCheck />} />
+        </Route>
+        <Route exact path="/employee-dashboard">
+          <EmployeeLayout page={<EmployeeDashboard />} />
         </Route>
       </Switch>
     </Router>
