@@ -10,7 +10,7 @@ import 'react-calendar/dist/Calendar.css';
 //DUMMY DATA
 const USER = {
   id: "u1",
-  name: "Chris Artrip",
+  name: "Giselle Domingo",
   image:
     "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png",
   status: "hr",

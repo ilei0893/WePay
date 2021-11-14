@@ -45,15 +45,18 @@ export default class MarkPastEmployee extends Component {
       },
     };
 
+    //add past employee
     axios
       .post("http://localhost:3001/insertpastemployees", data, config)
       .then((response) => {
           console.log("past employee inserted!!")
       });
 
+      //delete employee from employee table and delete employees benefits
       axios.post("http://localhost:3001/deleteemployee", data2, config).then(response => {
           console.log(response)
       })
+      axios.post("http://localhost:3001/deletebenefits", data2, config)
   }
   render() {
     return (
