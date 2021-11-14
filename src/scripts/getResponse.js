@@ -10,6 +10,7 @@ export function getEmployees() {
         image: 'https://i1.wp.com/www.natureswaycolonic.co.uk/wp-content/uploads/2018/10/avatar-anonymous-300x300.png',
         salary: list.Salary
       });
+      //=======DOES NOT WORK CURRENTLY=========
       // //flip array so we can show a descending order
       // let temp = [];
       // for(let i = group.length-1; i >= 0; i--){
@@ -77,6 +78,26 @@ export function getEmployeePaychecks(fullName){
 
   return axios
   .post("http://localhost:3001/getEmployeePaychecks", data, config)
+  .then((response) => {
+    this.response = response;
+    return this.response;
+  });
+}
+
+
+export function getEmployeeByName(fullName){
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let data = {
+    name: fullName,
+  };
+
+  return axios
+  .post("http://localhost:3001/findemployeebyname", data, config)
   .then((response) => {
     this.response = response;
     return this.response;

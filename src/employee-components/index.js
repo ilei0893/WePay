@@ -4,3 +4,4 @@
 
 export { default as EmployeeSidebar } from  './EmployeeSidebar/EmployeeSidebar';
 export { default as EmployeeHeader } from  './EmployeeHeader/EmployeeHeader';
+export { default as EmployeeTable } from  './EmployeeTable/EmployeeTable';

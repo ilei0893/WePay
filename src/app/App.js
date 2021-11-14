@@ -11,6 +11,7 @@ import ModifyEmployee from "../pages/ModifyEmployee/ModifyEmployee";
 
 import EmployeeLayout from "../employee-pages/EmployeeLayout";
 import EmployeeDashboard from "../employee-pages/Dashboard/EmployeeDashboard"
+import EmployeeView from "../employee-pages/EmployeeView/EmployeeView"
 
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -49,6 +50,9 @@ function App() {
         </Route>
         <Route exact path="/employee-dashboard">
           <EmployeeLayout page={<EmployeeDashboard />} />
+        </Route>
+        <Route exact path="/employee-view">
+          <EmployeeLayout page={<EmployeeView />} />
         </Route>
       </Switch>
     </Router>

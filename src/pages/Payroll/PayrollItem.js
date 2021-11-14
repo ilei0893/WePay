@@ -162,7 +162,7 @@ export default class PayrollItem extends Component {
           </Button>
         </div>
       </div>
-      <Modal show={this.state.show} onHide={this.handleClose} centered >
+      <Modal show={this.state.show} onHide={this.handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Paycheck</Modal.Title>
         </Modal.Header>

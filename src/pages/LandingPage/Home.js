@@ -301,9 +301,11 @@ export default class LandingPage extends Component {
             </div>
           </div>
         </div>
-
         {/* FOOTER */}
-        <div className="footer">{/* <div className="headline"></div> */}</div>
+        <div className="footer">
+          <h1>Interested?  Contact us.</h1>
+          <div>We can be reached at <b>wePayTeam@wePay.com</b></div>
+        </div>
       </div>
     );
   }
