@@ -17,6 +17,7 @@ export default function Login({setToken}) {
       password
     });
     setToken(token);
+    window.location.href = '/dashboard';
   };
 
 

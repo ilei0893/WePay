@@ -23,7 +23,7 @@ export default function Sidebar(props) {
           <MenuItem icon={<FaHouseUser />}><Link to="/employment">Employment</Link></MenuItem>
           <MenuItem icon={<FaRegBuilding />}><Link to="/Benefits">Benefits</Link></MenuItem>
           <MenuItem icon={<FaMoneyBillWave />}><Link to="/Payroll">Payroll</Link></MenuItem>
-          <MenuItem icon={<FaChevronLeft />}><Link to="/">Log Out</Link></MenuItem>
+          <MenuItem icon={<FaChevronLeft />}><Link onClick={() => sessionStorage.removeItem('token')} to="/">Log Out</Link></MenuItem>
           {/* IF WE NEED A SUBMENU */}
           {/* <SubMenu title="???">
             <MenuItem>Component 1</MenuItem>

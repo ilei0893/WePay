@@ -17,12 +17,14 @@ import EmployeeView from "../employee-pages/EmployeeView/EmployeeView";
 import { Login } from "../components";
 
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import useToken from './useToken';
+
 function App() {
-  const [token, setToken] = useState();
-  
+
+  const { token, setToken } = useToken();
   if (!token) {
     return (
       <Router>
@@ -40,11 +42,8 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
             <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
           </Route>
           <Route path="/dashboard">
             <Layout page={<Dashboard />} />
