@@ -53,7 +53,7 @@ export default function Login(props) {
       <Form className="login-form" onSubmit={handleSubmit}>
         <h1>Log In</h1>
         <Form.Label>
-          Email
+          Username
           <Form.Control
             type="text"
             onChange={(e) => setUserName(e.target.value)}
