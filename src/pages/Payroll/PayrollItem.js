@@ -208,7 +208,7 @@ export default class PayrollItem extends Component {
                   <tr>
                     <td>{this.state.data.Name}</td>
                     <td>{paycheckShort}</td>
-                    <td>40</td>
+                    <td>80</td>
                     <td>{this.state.data.GrossPay}</td>
                     <td>
                       <b>OASDI: </b>
@@ -268,7 +268,7 @@ export default class PayrollItem extends Component {
                 <tbody>
                   <tr>
                     <td>{this.props.name}</td>
-                    <td>40</td>
+                    <td>80</td>
                     {/* 40 beacuse we are assuming the employee is worked 8 hrs per day*/}
                     {/* Divided by 26 because bi-weekly paychecks!!! */}
                     {/* hourly wage ==  annual salary / 26 / 2 / 5 / 8 ====> 

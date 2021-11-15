@@ -9,8 +9,10 @@ import "./Login.css";
 export default function Login(props) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [isValidated, setIsValidated] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
 
-  /// FIXME: causes infinite loop !!!!!!!!!!!
+  /// FIXME: causes infinite loop !!!!!!!!!!!  this is supposed to redirect the user if they are already logged in
   // useEffect(() => {
   //   if(props.token){
   //     const tokenString = sessionStorage.getItem('token');
@@ -24,17 +26,31 @@ export default function Login(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setIsValidated(true);
+
     const token = await loginUser({
       username,
       password,
     });
-    console.log(token.data.User_Type);
-    if(token.data.User_Type === 'HR'){
-      window.location.href = '/dashboard'
-    } else{
-      window.location.href = '/employee-dashboard'
+    console.log(token.data);
+    if(token.data === undefined){
+      setUserNotFound(true)
+    } else {
+      setUserNotFound(false)
+      if(token.data.User_Type === 'HR'){
+        window.location.href = '/dashboard'
+      } else{
+        window.location.href = '/employee-dashboard'
+      }
+      props.setToken(token);
     }
-    props.setToken(token);
+
   };
   
   async function loginUser(credentials) {
@@ -47,16 +63,17 @@ export default function Login(props) {
     })
       .then(data => data.json())
    }
-
+if(userNotFound === false){
   return (
     <div>
-      <Form className="login-form" onSubmit={handleSubmit}>
+      <Form className="login-form" onSubmit={handleSubmit} validated={isValidated}>
         <h1>Log In</h1>
         <Form.Label>
           Username
           <Form.Control
             type="text"
             onChange={(e) => setUserName(e.target.value)}
+            required
           />
         </Form.Label>
         <Form.Label>
@@ -64,6 +81,7 @@ export default function Login(props) {
           <Form.Control
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Label>
         <div>
@@ -74,7 +92,36 @@ export default function Login(props) {
         </div>
       </Form>
     </div>
-  );
+  )} else return(
+    <div>
+    <Form className="login-form" onSubmit={handleSubmit} validated={isValidated}>
+      <h1>Log In</h1>
+      <Form.Label>
+        Username
+        <Form.Control
+          type="text"
+          onChange={(e) => setUserName(e.target.value)}
+          required
+        />
+      </Form.Label>
+      <Form.Label>
+        <p>Password</p>
+        <Form.Control
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </Form.Label>
+      <div>User not found, please make sure the information is correct</div>
+      <div>
+        <Button type="button" href="/" style={{ marginRight: "10px" }}>
+          Go Back
+        </Button>
+        <Button type="submit">Log In</Button>
+      </div>
+    </Form>
+  </div>
+  )
 }
 
 Login.propTypes = {
