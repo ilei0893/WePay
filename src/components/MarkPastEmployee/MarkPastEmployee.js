@@ -31,13 +31,13 @@ export default class MarkPastEmployee extends Component {
       salary: this.props.salary,
       position: this.props.position,
       reasonofleaving: this.state.reason,
-      workState: 'ny',
-      email: 'email@gmail.com'
+      workState: "ny",
+      email: "email@gmail.com",
     };
 
     let data2 = {
-        name: this.props.fullName,
-      };
+      name: this.props.fullName,
+    };
 
     const config = {
       headers: {
@@ -65,7 +65,14 @@ export default class MarkPastEmployee extends Component {
         <Form>
           <Form.Group>
             <Form.Label>Reason for Leaving</Form.Label>
-            <Form.Control name="reason" onChange={this.handleChange} />
+            <Form.Select name="reason" aria-label="Default select example" onChange={this.handleChange}>
+              <option>Open this select menu</option>
+              <option value="TERMINATED">TERMINATED</option>
+              <option value="RETIRED">RETIRED</option>
+              <option value="QUIT">QUIT</option>
+              <option value="DECEASED">DECEASED</option>
+              <option value="DISABLED">DISABLED</option>
+            </Form.Select>
           </Form.Group>
           <br />
           <Button variant="primary" type="submit" onClick={this.handleSubmit}>

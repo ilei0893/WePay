@@ -35,6 +35,7 @@ export default class PayrollItem extends Component {
   componentDidMount() {
     //calculate federal tax
     this.state.fed = 0;
+    //new york
     if (this.props.salary > 0 && this.props.salary <= 8500) {
       this.state.fed = this.props.salary * 0.04;
     } else if (this.props.salary >= 8501 && this.props.salary <= 11700) {
