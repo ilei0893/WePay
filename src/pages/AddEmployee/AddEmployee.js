@@ -282,14 +282,16 @@ export default class AddEmployee extends Component {
                       <Col>
                         <Form.Group className="mb-3" controlId="formWorkState">
                           <Form.Label>Work State</Form.Label>
-                          <Form.Control
+                          <Form.Select
                             name="workState"
-                            type="text"
-                            defaultValue="NY"
+                            aria-label="Default select example"
                             onChange={this.handleChange}
                             required
-                            disabled
-                          />
+                          >
+                            <option value="NY">NY</option>
+                            <option value="NJ">NJ</option>
+                            <option value="CT">CT</option>
+                          </Form.Select>
                         </Form.Group>
                       </Col>
                       <Col>
