@@ -3,6 +3,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent, Sid
 import 'react-pro-sidebar/dist/css/styles.css';
 import {FaHome, FaHouseUser, FaMoneyBillWave, FaChevronLeft, FaRegBuilding, FaInbox} from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import OnlineReportImage from "../../assets/Online_report_Outline.png"; //logo img
 
 //css
 import './EmployeeSidebar.css';
@@ -15,7 +16,7 @@ export default function Sidebar(props) {
       toggled={false}
       breakPoint={'md'}>
           <SidebarHeader style={{padding: '20px'}}>
-              WePay
+          <img src={OnlineReportImage} width="70px"/>WePay
           </SidebarHeader>
           <SidebarContent>
         <Menu iconShape="circle">
