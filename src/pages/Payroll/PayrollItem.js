@@ -15,6 +15,20 @@ import "./PayrollItem.css";
 import axios from "axios";
 import * as response from "../../scripts/getResponse";
 
+//DUMMY
+let OBJ = {
+  Name: "Part Time Guy",
+  userType: "part-time"
+}
+
+{/* <th>Employee Name</th>
+                    <th>Paycheck Date</th>
+                    <th>Hours Worked</th>
+                    <th>Gross Pay</th>
+                    <th>Tax Deductions</th>
+                    <th>Benefits Deductions</th>
+                    <th>Net Pay</th> */}
+
 export default class PayrollItem extends Component {
   constructor(props) {
     super(props);
@@ -155,6 +169,7 @@ export default class PayrollItem extends Component {
       paycheckShort = this.state.data.PaycheckDate
         ? this.state.data.PaycheckDate.substring(0, 10)
         : "";
+        // if(employeeType == "parttime") TODO: Add diff between parttime and full time
       return (
         <>
           <div className="salary-item">
@@ -337,7 +352,7 @@ export default class PayrollItem extends Component {
           </Modal>
         </>
       );
-    } else {
+    } else { // return new employee check
       return(
         <>
           <div className="salary-item">
