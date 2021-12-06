@@ -11,14 +11,23 @@ import "./Dashboard.css";
 import "react-calendar/dist/Calendar.css";
 
 //DUMMY DATA
-const USER = {
-  name: "John Doe",
+let USER = []
+if(sessionStorage.getItem('token')){
+  const tokenString = sessionStorage.getItem('token');
+  const token = JSON.parse(tokenString);
+  console.log(token.data.Name)
+USER = {
+  name: token.data.Name,
   image:
     "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png",
-  position: "Salesman",
+  position: "Engineer",
   company: "Chase",
-  SSN: "0987",
+  SSN: token.data.SSN.substring(token.data.SSN.length - 4),
 };
+}
+
+console.log(USER.name)
+
 
 export default class EmployeeDashboard extends Component {
   constructor() {

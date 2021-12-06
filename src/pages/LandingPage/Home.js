@@ -77,126 +77,6 @@ export default class LandingPage extends Component {
   render() {
     return (
       <div className="landing-page">
-        {/* MODAL WHEN LOG IN IS PRESSED */}
-        <Modal
-          show={this.state.showLogin}
-          fullscreen={false}
-          onHide={this.handleLoginModal}
-          className="login"
-        >
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body>
-            <Container
-              style={{
-                width: "300px",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Form>
-                <Form.Group>
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    name="username"
-                    type="username"
-                    placeholder="Enter Username"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="Enter Password"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-              </Form>
-              <br />
-              <Button
-                variant="primary"
-                type="submit"
-                href="/dashboard"
-                // onClick={this.handleSubmit}
-              >
-                Log In
-              </Button>
-            </Container>
-          </Modal.Body>
-        </Modal>
-
-        {/* MODAL WHEN SIGN IN IS PRESSED */}
-        <Modal
-          show={this.state.showSignUp}
-          fullscreen={false}
-          onHide={this.handleSignUpModal}
-        >
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body>
-            <Container
-              style={{
-                width: "300px",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Form>
-                <Form.Group>
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    name="username"
-                    type="username"
-                    placeholder="Enter Username"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="Enter Password"
-                    onChange={this.handleChange}
-                  />
-                </Form.Group>
-                {/* <Form.Group>
-                  <Form.Label>User Type</Form.Label>
-                  <FloatingLabel
-                    controlId="select-type"
-                    label="Select your type"
-                  >
-                    <Form.Select
-                      name="userType"
-                      type="radio"
-                      onChange={this.handleChange}
-                    >
-                      <option>Select a user type</option>
-                      <option>Employee</option>
-                      <option>HR</option>
-                    </Form.Select>
-                  </FloatingLabel>
-                </Form.Group> */}
-                <br />
-                <Button
-                  variant="primary"
-                  type="submit"
-                  href="/employee-dashboard"
-                  // onClick={this.handleSubmit}
-                >
-                  Log In
-                </Button>
-              </Form>
-            </Container>
-          </Modal.Body>
-        </Modal>
-
         {/* NAVBAR */}
         <Navbar variant="light" expand="md" className="landing-nav">
           <Container md={4}>
@@ -207,16 +87,9 @@ export default class LandingPage extends Component {
               <Button
                 className="landing-button"
                 variant="primary"
-                onClick={this.handleSignUpModal}
+                href="/login"
               >
-                Employee Log In
-              </Button>
-              <Button
-                className="landing-button"
-                variant="primary"
-                onClick={this.handleLoginModal}
-              >
-                HR Log In
+                Login
               </Button>
             </Navbar.Collapse>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
