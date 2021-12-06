@@ -9,6 +9,7 @@ export function getEmployees() {
         name: list.Name,
         image: 'https://i1.wp.com/www.natureswaycolonic.co.uk/wp-content/uploads/2018/10/avatar-anonymous-300x300.png',
         salary: list.Salary,
+        livingState: list.LivingState,
         employeeType: list.EmployeeType,
         position: list.Position,
         hoursWorked: list.Hours_Worked,

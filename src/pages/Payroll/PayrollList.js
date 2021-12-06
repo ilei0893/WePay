@@ -30,6 +30,7 @@ console.log(props.items);
                 employeeType={user.employeeType}
                 position={user.position}
                 salary={user.salary}
+                livingState={user.livingState}
                 oasdiTaxes={user.salary * 0.062}
                 hiTaxes={user.salary * 0.0145}
                 hoursWorked={user.hoursWorked}
