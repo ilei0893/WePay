@@ -15,7 +15,7 @@ export default function PayrollList(props) {
       </Card>
     );
   }
-
+console.log(props.items);
   return (
     <Container>
       {props.items.map((user) => (
@@ -27,9 +27,13 @@ export default function PayrollList(props) {
                 id={user.id}
                 image={user.image}
                 name={user.name}
+                employeeType={user.employeeType}
+                position={user.position}
                 salary={user.salary}
                 oasdiTaxes={user.salary * 0.062}
                 hiTaxes={user.salary * 0.0145}
+                hoursWorked={user.hoursWorked}
+                hourlyRate={user.hourlyRate}
               />
             </Card.Body>
           </Card>

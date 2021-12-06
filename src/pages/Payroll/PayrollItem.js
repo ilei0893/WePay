@@ -15,20 +15,6 @@ import "./PayrollItem.css";
 import axios from "axios";
 import * as response from "../../scripts/getResponse";
 
-//DUMMY
-let OBJ = {
-  Name: "Part Time Guy",
-  userType: "part-time"
-}
-
-{/* <th>Employee Name</th>
-                    <th>Paycheck Date</th>
-                    <th>Hours Worked</th>
-                    <th>Gross Pay</th>
-                    <th>Tax Deductions</th>
-                    <th>Benefits Deductions</th>
-                    <th>Net Pay</th> */}
-
 export default class PayrollItem extends Component {
   constructor(props) {
     super(props);
@@ -163,13 +149,13 @@ export default class PayrollItem extends Component {
   }
 
   render() {
-    //shorten paycheck date
+    // SHORTEN PAYCHECK DATE
     let paycheckShort = "";
     if (this.state.data != undefined) {
       paycheckShort = this.state.data.PaycheckDate
         ? this.state.data.PaycheckDate.substring(0, 10)
         : "";
-        // if(employeeType == "parttime") TODO: Add diff between parttime and full time
+      if(this.props.employeeType == "FT"){ // ===== DETERMINES IF THE EMPLOYEE IS A FULL TIME WITH A PREVIOUS PAYCHECK
       return (
         <>
           <div className="salary-item">
@@ -180,6 +166,9 @@ export default class PayrollItem extends Component {
             />
             <div className="salary-item-desc">
               <h5>{this.props.name}</h5>
+              Position: {this.props.position} <br />
+              Employee Type: {this.props.employeeType === "FT" ? "Full Time Employee" : "Part Time Employee"} <br />
+              Hours Worked: {this.props.hoursWorked} hours <br />
               Salary: ${this.props.salary} <br />
               Taxes: $
               {this.props.oasdiTaxes + this.props.hiTaxes + this.state.fed}{" "}
@@ -259,8 +248,185 @@ export default class PayrollItem extends Component {
               </Button>
             </Modal.Footer>
           </Modal>
-
-          {/* PAYROLL MODAL */}
+          {/*
+          =============
+          PAYROLL MODAL 
+          =============
+          */}
+          <Modal
+            show={this.state.showPay}
+            onHide={this.handleShowClose}
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Run Payroll</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>Hours Worked</th>
+                    <th>Gross Pay</th>
+                    <th>Tax Deductions</th>
+                    <th>Benefits Deductions</th>
+                    <th>Net Pay</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{this.props.name}</td>
+                    <td>80</td>
+                    <td>{Number(this.props.salary / 26).toFixed(2)}</td>
+                    <td>
+                      <b>OASDI: </b>
+                      {Number(this.props.oasdiTaxes / 26).toFixed(2)} <br />
+                      <b>Federal: </b>
+                      {Number(this.state.fed / 26).toFixed(2)} <br />
+                      <b>HI: </b>
+                      {Number(this.props.hiTaxes / 26).toFixed(2)} <br />
+                      <b>Total: </b>
+                      {Number(
+                        (this.props.oasdiTaxes +
+                          this.state.fed +
+                          this.props.hiTaxes) /
+                          26
+                      ).toFixed(2)}
+                    </td>
+                    <td>
+                      <b>Health Insurance:</b>{" "}
+                      {this.state.benefitsData.Health_Insurance} <br />
+                      <b>Dental Insurance: </b>{" "}
+                      {this.state.benefitsData.Dental_Insurance} <br />
+                      <b>Total: </b>{" "}
+                      {Number(
+                        this.state.benefitsData.Health_Insurance +
+                          this.state.benefitsData.Dental_Insurance
+                      )}
+                    </td>
+                    <td>
+                      {Number(
+                        Number(this.props.salary / 26).toFixed(2) -
+                          Number(
+                            (this.props.oasdiTaxes +
+                              this.state.fed +
+                              this.props.hiTaxes) /
+                              26
+                          ).toFixed(2) -
+                          Number(
+                            Number(
+                              this.state.benefitsData.Health_Insurance +
+                                this.state.benefitsData.Dental_Insurance
+                            ).toFixed(2)
+                          )
+                      ).toFixed(2)}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+              <Button variant="primary" onClick={this.handlePayroll}>
+                Run Payroll
+              </Button>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleShowClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      )} else{ // ===== IF THE EMPLOYEE IS A PART TIME WITH A PREVIOUS PAYCHECK
+      return (
+        <>
+          <div className="salary-item">
+            <img
+              className="payroll-img"
+              src={this.props.image}
+              alt={this.props.name}
+            />
+            <div className="salary-item-desc">
+              <h5>{this.props.name}</h5>
+              Position: {this.props.position} <br />
+              Employee Type: {this.props.employeeType === "FT" ? "Full Time Employee" : "Part Time Employee"} <br />
+              Hourly Rate: ${this.props.hourlyRate} <br />
+              Hours Worked: {this.props.hoursWorked} hours <br />
+            </div> 
+            <div className="salary-button">
+              <Button variant="primary" onClick={this.handleShow}>
+                View Recent Check
+              </Button>
+              <Button variant="primary" onClick={this.handleShowPay}>
+                Run Payroll
+              </Button>
+            Last Paycheck: {paycheckShort}
+            </div>
+          </div>
+          <Modal
+            show={this.state.show}
+            onHide={this.handleClose}
+            centered
+            size="lg"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Paycheck</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>Paycheck Date</th>
+                    <th>Hours Worked</th>
+                    <th>Gross Pay</th>
+                    <th>Tax Deductions</th>
+                    <th>Benefits Deductions</th>
+                    <th>Net Pay</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{this.state.data.Name}</td>
+                    <td>{paycheckShort}</td>
+                    <td>80</td>
+                    <td>{this.state.data.GrossPay}</td>
+                    <td>
+                      <b>OASDI: </b>
+                      {Number(this.props.oasdiTaxes / 26).toFixed(2)}
+                      <br></br>
+                      <b>Federal: </b>
+                      {Number(this.state.fed / 26).toFixed(2)}
+                      <br></br>
+                      <b>HI: </b>
+                      {Number(this.props.hiTaxes / 26).toFixed(2)} <br />
+                      <b>Total:</b> {this.state.data.Taxes}
+                    </td>
+                    <td>
+                      <b>Health Insurance:</b>
+                      {this.state.benefitsData.Health_Insurance} <br />
+                      <b>Dental Insurance: </b>
+                      {this.state.benefitsData.Dental_Insurance} <br />
+                      <b>Total: </b>
+                      {Number(
+                        this.state.benefitsData.Health_Insurance +
+                          this.state.benefitsData.Dental_Insurance
+                      )}
+                    </td>
+                    <td>{this.state.data.Total}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          {/* 
+          =============
+          PAYROLL MODAL 
+          =============
+          */}
           <Modal
             show={this.state.showPay}
             onHide={this.handleShowClose}
@@ -351,161 +517,328 @@ export default class PayrollItem extends Component {
             </Modal.Footer>
           </Modal>
         </>
-      );
-    } else { // return new employee check
-      return(
-        <>
-          <div className="salary-item">
-            <img
-              className="payroll-img"
-              src={this.props.image}
-              alt={this.props.name}
-            />
-            <div className="salary-item-desc">
-              <h5>{this.props.name}</h5>
-              Salary: ${this.props.salary} <br />
-              Taxes: $
-              {this.props.oasdiTaxes + this.props.hiTaxes + this.state.fed}{" "}
-              <br />
-              Earnings: $
-              {this.props.salary -
-                (this.props.oasdiTaxes + this.props.hiTaxes + this.state.fed)}
+      )
+      }
+    } else { //this returns the employee if they are a new employee
+      if(this.props.employeeType === "FT"){ //IF THE EMPLOYEE IS A NEW EMPLOYEE
+        return(
+          <>
+            <div className="salary-item">
+              <img
+                className="payroll-img"
+                src={this.props.image}
+                alt={this.props.name}
+              />
+              <div className="salary-item-desc">
+                <h5>{this.props.name}</h5>
+                Position: {this.props.position} <br />
+                Employee Type: {this.props.employeeType === "FT" ? "Full Time Employee" : "Part Time Employee"} <br />
+                Hours Worked: {this.props.hoursWorked} hours <br />
+                Salary: ${this.props.salary} <br />
+                Taxes: $
+                {this.props.oasdiTaxes + this.props.hiTaxes + this.state.fed}{" "}
+                <br />
+                Earnings: $
+                {this.props.salary -
+                  (this.props.oasdiTaxes + this.props.hiTaxes + this.state.fed)}
+              </div>
+              <div className="salary-button">
+                <Button variant="primary" onClick={this.handleShow}>
+                  View Recent Check
+                </Button>
+                <Button variant="primary" onClick={this.handleShowPay}>
+                  Run Payroll
+                </Button>
+              </div>
             </div>
-            <div className="salary-button">
-              <Button variant="primary" onClick={this.handleShow}>
-                View Recent Check
-              </Button>
-              <Button variant="primary" onClick={this.handleShowPay}>
-                Run Payroll
-              </Button>
-            </div>
-          </div>
-          <Modal
-            show={this.state.show}
-            onHide={this.handleClose}
-            centered
-            size="lg"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Paycheck</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Employee Name</th>
-                    <th>Paycheck Date</th>
-                    <th>Hours Worked</th>
-                    <th>Gross Pay</th>
-                    <th>Tax Deductions</th>
-                    <th>Benefits Deductions</th>
-                    <th>Net Pay</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-
-          {/* PAYROLL MODAL */}
-          <Modal
-            show={this.state.showPay}
-            onHide={this.handleShowClose}
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Run Payroll</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Employee Name</th>
-                    <th>Hours Worked</th>
-                    <th>Gross Pay</th>
-                    <th>Tax Deductions</th>
-                    <th>Benefits Deductions</th>
-                    <th>Net Pay</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{this.props.name}</td>
-                    <td>40</td>
-                    <td>{Number(this.props.salary / 26).toFixed(2)}</td>
-                    <td>
-                      <b>OASDI: </b>
-                      {Number(this.props.oasdiTaxes / 26).toFixed(2)} <br />
-                      <b>Federal: </b>
-                      {Number(this.state.fed / 26).toFixed(2)} <br />
-                      <b>HI: </b>
-                      {Number(this.props.hiTaxes / 26).toFixed(2)} <br />
-                      <b>Total: </b>
-                      {Number(
-                        (this.props.oasdiTaxes +
-                          this.state.fed +
-                          this.props.hiTaxes) /
-                          26
-                      ).toFixed(2)}
-                    </td>
-                    <td>
-                      <b>Health Insurance:</b>{" "}
-                      {this.state.benefitsData.Health_Insurance} <br />
-                      <b>Dental Insurance: </b>{" "}
-                      {this.state.benefitsData.Dental_Insurance} <br />
-                      <b>Total: </b>{" "}
-                      {Number(
-                        this.state.benefitsData.Health_Insurance +
-                          this.state.benefitsData.Dental_Insurance
-                      )}
-                    </td>
-                    <td>
-                      {Number(
-                        Number(this.props.salary / 26).toFixed(2) -
-                          Number(
-                            (this.props.oasdiTaxes +
-                              this.state.fed +
-                              this.props.hiTaxes) /
-                              26
-                          ).toFixed(2) -
-                          Number(
+            <Modal
+              show={this.state.show}
+              onHide={this.handleClose}
+              centered
+              size="lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Paycheck</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Employee Name</th>
+                      <th>Paycheck Date</th>
+                      <th>Hours Worked</th>
+                      <th>Gross Pay</th>
+                      <th>Tax Deductions</th>
+                      <th>Benefits Deductions</th>
+                      <th>Net Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+  
+            {/*           
+            =============
+            PAYROLL MODAL 
+            ============= 
+            */}
+            <Modal
+              show={this.state.showPay}
+              onHide={this.handleShowClose}
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Run Payroll</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Employee Name</th>
+                      <th>Hours Worked</th>
+                      <th>Gross Pay</th>
+                      <th>Tax Deductions</th>
+                      <th>Benefits Deductions</th>
+                      <th>Net Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{this.props.name}</td>
+                      <td>40</td>
+                      <td>{Number(this.props.salary / 26).toFixed(2)}</td>
+                      <td>
+                        <b>OASDI: </b>
+                        {Number(this.props.oasdiTaxes / 26).toFixed(2)} <br />
+                        <b>Federal: </b>
+                        {Number(this.state.fed / 26).toFixed(2)} <br />
+                        <b>HI: </b>
+                        {Number(this.props.hiTaxes / 26).toFixed(2)} <br />
+                        <b>Total: </b>
+                        {Number(
+                          (this.props.oasdiTaxes +
+                            this.state.fed +
+                            this.props.hiTaxes) /
+                            26
+                        ).toFixed(2)}
+                      </td>
+                      <td>
+                        <b>Health Insurance:</b>{" "}
+                        {this.state.benefitsData.Health_Insurance} <br />
+                        <b>Dental Insurance: </b>{" "}
+                        {this.state.benefitsData.Dental_Insurance} <br />
+                        <b>Total: </b>{" "}
+                        {Number(
+                          this.state.benefitsData.Health_Insurance +
+                            this.state.benefitsData.Dental_Insurance
+                        )}
+                      </td>
+                      <td>
+                        {Number(
+                          Number(this.props.salary / 26).toFixed(2) -
                             Number(
-                              this.state.benefitsData.Health_Insurance +
-                                this.state.benefitsData.Dental_Insurance
-                            ).toFixed(2)
-                          )
-                      ).toFixed(2)}
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-              <Button variant="primary" onClick={this.handlePayroll}>
-                Run Payroll
-              </Button>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleShowClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-      );
+                              (this.props.oasdiTaxes +
+                                this.state.fed +
+                                this.props.hiTaxes) /
+                                26
+                            ).toFixed(2) -
+                            Number(
+                              Number(
+                                this.state.benefitsData.Health_Insurance +
+                                  this.state.benefitsData.Dental_Insurance
+                              ).toFixed(2)
+                            )
+                        ).toFixed(2)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Button variant="primary" onClick={this.handlePayroll}>
+                  Run Payroll
+                </Button>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleShowClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
+        );
+      } else { //IF EMPLOYEE IS A PART TIMER
+        return(
+          <>
+            <div className="salary-item">
+              <img
+                className="payroll-img"
+                src={this.props.image}
+                alt={this.props.name}
+              />
+              <div className="salary-item-desc">
+                <h5>{this.props.name}</h5>
+                Position: {this.props.position} <br />
+                Employee Type: {this.props.employeeType === "FT" ? "Full Time Employee" : "Part Time Employee"} <br />
+                Hourly Rate: ${this.props.hourlyRate} <br />
+                Hours Worked: {this.props.hoursWorked} hours <br />
+              </div>
+              <div className="salary-button">
+                <Button variant="primary" onClick={this.handleShow}>
+                  View Recent Check
+                </Button>
+                <Button variant="primary" onClick={this.handleShowPay}>
+                  Run Payroll
+                </Button>
+              </div>
+            </div>
+            <Modal
+              show={this.state.show}
+              onHide={this.handleClose}
+              centered
+              size="lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Paycheck</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Employee Name</th>
+                      <th>Paycheck Date</th>
+                      <th>Hours Worked</th>
+                      <th>Gross Pay</th>
+                      <th>Tax Deductions</th>
+                      <th>Benefits Deductions</th>
+                      <th>Net Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+  
+            {/*           
+            =============
+            PAYROLL MODAL 
+            ============= 
+            */}
+            <Modal
+              show={this.state.showPay}
+              onHide={this.handleShowClose}
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Run Payroll</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Employee Name</th>
+                      <th>Hours Worked</th>
+                      <th>Gross Pay</th>
+                      <th>Tax Deductions</th>
+                      <th>Benefits Deductions</th>
+                      <th>Net Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{this.props.name}</td>
+                      <td>40</td>
+                      <td>{Number(this.props.salary / 26).toFixed(2)}</td>
+                      <td>
+                        <b>OASDI: </b>
+                        {Number(this.props.oasdiTaxes / 26).toFixed(2)} <br />
+                        <b>Federal: </b>
+                        {Number(this.state.fed / 26).toFixed(2)} <br />
+                        <b>HI: </b>
+                        {Number(this.props.hiTaxes / 26).toFixed(2)} <br />
+                        <b>Total: </b>
+                        {Number(
+                          (this.props.oasdiTaxes +
+                            this.state.fed +
+                            this.props.hiTaxes) /
+                            26
+                        ).toFixed(2)}
+                      </td>
+                      <td>
+                        <b>Health Insurance:</b>{" "}
+                        {this.state.benefitsData.Health_Insurance} <br />
+                        <b>Dental Insurance: </b>{" "}
+                        {this.state.benefitsData.Dental_Insurance} <br />
+                        <b>Total: </b>{" "}
+                        {Number(
+                          this.state.benefitsData.Health_Insurance +
+                            this.state.benefitsData.Dental_Insurance
+                        )}
+                      </td>
+                      <td>
+                        {Number(
+                          Number(this.props.salary / 26).toFixed(2) -
+                            Number(
+                              (this.props.oasdiTaxes +
+                                this.state.fed +
+                                this.props.hiTaxes) /
+                                26
+                            ).toFixed(2) -
+                            Number(
+                              Number(
+                                this.state.benefitsData.Health_Insurance +
+                                  this.state.benefitsData.Dental_Insurance
+                              ).toFixed(2)
+                            )
+                        ).toFixed(2)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Button variant="primary" onClick={this.handlePayroll}>
+                  Run Payroll
+                </Button>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleShowClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
+        );
+
+      }
+    
     }
   }
 }

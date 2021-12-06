@@ -17,6 +17,7 @@ export default class Payroll extends Component {
 
   componentDidMount(){
     response.getEmployees().then(response => {
+      console.log(response)
       this.setState({
         USERS: response
       })
