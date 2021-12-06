@@ -8,7 +8,8 @@ export function getEmployees() {
       group.push({
         name: list.Name,
         image: 'https://i1.wp.com/www.natureswaycolonic.co.uk/wp-content/uploads/2018/10/avatar-anonymous-300x300.png',
-        salary: list.Salary
+        salary: list.Salary,
+        livingState: list.LivingState
       });
       //=======DOES NOT WORK CURRENTLY=========
       // //flip array so we can show a descending order
