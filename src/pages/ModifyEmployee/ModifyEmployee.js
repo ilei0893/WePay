@@ -18,6 +18,8 @@ export default class ModifyEmployee extends Component {
       SSN: "",
       address: "",
       salary: "",
+      hourlyRate:"",
+      employeeType: "",
       workState: "",
       livingState: "",
       phoneNum: "",
@@ -34,7 +36,8 @@ export default class ModifyEmployee extends Component {
       isEditSubmitted: false,
       isEditBenefits: false,
       isPastEmployee: false,
-      validatedSearch: false
+      validatedSearch: false,
+      validatedBenefits: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,7 +53,7 @@ export default class ModifyEmployee extends Component {
   //get input from employee search form
   handleChange(event) {
     const target = event.target;
-    const value = target.type === "radio" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -71,18 +74,19 @@ export default class ModifyEmployee extends Component {
         this.setState({
           fullName: list.Name,
           address: list.Address,
+          employeeType: list.EmployeeType,
           salary: list.Salary,
           workState: list.WorkState,
           livingState: list.LivingState,
           phoneNum: list.Phone_Number,
           position: list.Position,
+          hourlyRate: list.Hourly_Rate,
         });
       });
     });
   }
 
   handleBenefitsEdit(event) {
-    event.preventDefault();
     this.setState({
       isEdit: false,
       isEditBenefits: true,
@@ -114,6 +118,8 @@ export default class ModifyEmployee extends Component {
       SSN: this.state.SSN,
       email: this.state.email,
       phoneNum: this.state.phoneNum,
+      hourlyRate: this.state.hourlyRate,
+      employeeType: this.state.employeeType,
       address: this.state.address,
       salary: this.state.salary,
       position: this.state.position,
@@ -139,8 +145,15 @@ export default class ModifyEmployee extends Component {
 
   handleBenefitsSubmit(event) {
     event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+   
     this.setState({
       isEditSubmitted: true,
+      validatedBenefits: true,
     });
     let data = {
       name: this.state.fullName,
@@ -149,13 +162,11 @@ export default class ModifyEmployee extends Component {
       Food_Stipend: this.state.Food_Stipend,
       Dental_Insurance: this.state.Dental_Insurance,
     };
-    console.log(data)
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-
     axios
       .put("http://localhost:3001/updateemployeebenefit", data, config)
       .then((response) => {
@@ -194,8 +205,11 @@ export default class ModifyEmployee extends Component {
                 <Col>
                   <h4>{list.Name}</h4>
                   <p>Position: {list.Position}</p>
+                  <p>Employee Type: {list.EmployeeType === "FT" ? "Full Time" : "Part Time"}</p>
+                  {/* if employee is a full time, show their salary else if they are a part time show their hourly rate */}
+                  {list.EmployeeType === "FT" ? <p>Salary: ${list.Salary}</p> : <p>Hourly Rate: ${list.Hourly_Rate}</p>}
+                  <p>Hours Worked: {list.Hours_Worked} hours</p>
                   <p>Phone Number: {list.Phone_Number}</p>
-                  <p>Salary: {list.Salary}</p>
                   <p>Email: {list.Email}</p>
                 </Col>
                 <Col>
@@ -218,10 +232,12 @@ export default class ModifyEmployee extends Component {
           );
           this.setState({
             data: employee,
+            employeeType: list.EmployeeType,
             phoneNum: list.Phone_Number,
             salary: list.Salary,
             position: list.Position,
             email: list.Email,
+            hourlyRate: list.Hourly_Rate,
           });
         });
       }
@@ -275,6 +291,8 @@ export default class ModifyEmployee extends Component {
             livingState={this.state.livingState}
             phoneNum={this.state.phoneNum}
             position={this.state.position}
+            hourlyRate={this.state.hourlyRate}
+            employeeType={this.state.employeeType}
           />
         </>
       );
@@ -299,11 +317,13 @@ export default class ModifyEmployee extends Component {
             handleChange={this.handleChange}
             handleBenefitsSubmit={this.handleBenefitsSubmit}
             benefitsData={this.state.benefitsData}
+            EmployeeType={this.state.employeeType}
             PTO={this.state.PTO}
             Health_Insurance={this.state.Health_Insurance}
             Food_Stipend={this.state.Food_Stipend}
             Dental_Insurance={this.state.Dental_Insurance}
             isEditSubmitted={this.state.isEditSubmitted}
+            validated={this.state.validatedBenefits}
           />
         </>
       );

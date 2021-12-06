@@ -21,7 +21,10 @@ export default class AddEmployee extends Component {
       city: "",
       state: "NY",
       zip: "",
-      salary: "",
+      salary: "0",
+      employeeType: "FT",
+      hourlyRate: "0",
+      hoursWorked: 0,
       position: "",
       workState: "NY",
       livingState: "NY",
@@ -74,6 +77,9 @@ export default class AddEmployee extends Component {
         " " +
         this.state.zip,
       salary: this.state.salary,
+      employeeType: this.state.employeeType,
+      hourlyRate: this.state.hourlyRate,
+      hoursWorked: this.state.hoursWorked,
       position: this.state.position,
       workState: this.state.workState,
       livingState: this.state.livingState,
@@ -102,6 +108,147 @@ export default class AddEmployee extends Component {
   }
 
   render() {
+    let benefits;
+    if (this.state.employeeType === "FT") {
+      benefits = (
+        <div>
+          <Form.Group className="mb-3" controlId="formPTO">
+            <Form.Label>PTO</Form.Label>
+            <Form.Control
+              name="PTO"
+              type="text"
+              value="240"
+              ref={this.ptoInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formHealthInsurance">
+            <Form.Label>Health Insurance ($100)</Form.Label>
+            <Form.Control
+              name="Health_Insurance"
+              type="text"
+              value={this.state.HealthInsurance ? "100" : "0"}
+              ref={this.healthInsuranceInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formFoodStipend">
+            <Form.Label>Food Stipend ($50)</Form.Label>
+            <Form.Control
+              name="Food_Stipend"
+              type="text"
+              value={this.state.FoodStipend ? "50" : "0"}
+              ref={this.foodStipendInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formDentalInsurance">
+            <Form.Label>Dental Insurance ($15)</Form.Label>
+            <Form.Control
+              name="Dental_Insurance"
+              type="text"
+              value={this.state.DentalInsurance ? "15" : "0"}
+              ref={this.dentalInsuranceInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          New Full-Time Employees are eligible for the following benefits:
+          <Form.Check
+            name="HealthInsurance"
+            type="checkbox"
+            label="Health Insurance"
+            onChange={this.handleChange}
+          />
+          <Form.Check
+            name="FoodStipend"
+            type="checkbox"
+            label="Food Stipend"
+            onChange={this.handleChange}
+          />
+          <Form.Check
+            name="DentalInsurance"
+            type="checkbox"
+            label="Dental Insurance"
+            onChange={this.handleChange}
+          />
+        </div>
+      );
+    } else {
+      benefits = <div>
+                  <Form.Group className="mb-3" controlId="formPTO">
+            <Form.Label>PTO</Form.Label>
+            <Form.Control
+              name="PTO"
+              type="text"
+              value="240"
+              ref={this.ptoInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formHealthInsurance">
+            <Form.Label>Health Insurance ($100)</Form.Label>
+            <Form.Control
+              name="Health_Insurance"
+              type="text"
+              value={this.state.HealthInsurance ? "100" : "0"}
+              ref={this.healthInsuranceInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formFoodStipend">
+            <Form.Label>Food Stipend ($50)</Form.Label>
+            <Form.Control
+              name="Food_Stipend"
+              type="text"
+              value={"0"}
+              ref={this.foodStipendInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formDentalInsurance">
+            <Form.Label>Dental Insurance ($15)</Form.Label>
+            <Form.Control
+              name="Dental_Insurance"
+              type="text"
+              value={ "0"}
+              ref={this.dentalInsuranceInput}
+              required
+              disabled
+            />
+          </Form.Group>
+          New Part-Time Employees are eligible for the following benefits:
+          <Form.Check
+            name="HealthInsurance"
+            type="checkbox"
+            label="Health Insurance"
+            onChange={this.handleChange}
+          />
+          <Form.Check
+            name="FoodStipend"
+            type="checkbox"
+            label="Food Stipend"
+            onChange={this.handleChange}
+            disabled
+            checked={false}
+          />
+          <Form.Check
+            name="DentalInsurance"
+            type="checkbox"
+            label="Dental Insurance"
+            onChange={this.handleChange}
+            disabled
+            checked={false}
+          />
+      </div>;
+    }
+
     if (this.state.isSubmitted == false) {
       return (
         <div>
@@ -251,19 +398,48 @@ export default class AddEmployee extends Component {
                         Must be a US phone number
                       </Form.Text>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formSalary">
-                      <Form.Label>Salary</Form.Label>
-                      <Form.Control
-                        name="salary"
-                        placeholder="50000"
-                        pattern="[0-9]+"
+                    <Form.Group className="mb-3" controlId="formEmployeeType">
+                      <Form.Label>Employee Type</Form.Label>
+                      <Form.Select
+                        name="employeeType"
+                        aria-label="Default select example"
                         onChange={this.handleChange}
                         required
-                      />
-                      <Form.Text className="text-muted">
-                        Symbols and words are not allowed
-                      </Form.Text>
+                        defaultValue="FT"
+                      >
+                        <option value="FT">Full Time</option>
+                        <option value="PT">Part Time</option>
+                      </Form.Select>
                     </Form.Group>
+                    {this.state.employeeType === "FT" ? 
+                    <Form.Group className="mb-3" controlId="formSalary">
+                    <Form.Label>Salary</Form.Label>
+                    <Form.Control
+                      name="salary"
+                      placeholder="50000"
+                      pattern="[0-9]+"
+                      onChange={this.handleChange}
+                      required
+                    />
+                    <Form.Text className="text-muted">
+                      Symbols and words are not allowed
+                    </Form.Text>
+                  </Form.Group>
+                  :
+                  <Form.Group className="mb-3" controlId="formHourlyRate">
+                  <Form.Label>Hourly Rate</Form.Label>
+                  <Form.Control
+                    name="hourlyRate"
+                    placeholder="25"
+                    pattern="[0-9]+"
+                    onChange={this.handleChange}
+                    required
+                  />
+                  <Form.Text className="text-muted">
+                    Symbols and words are not allowed
+                  </Form.Text>
+                </Form.Group>
+    }
                     <Form.Group className="mb-3" controlId="formPosition">
                       <Form.Label>Position</Form.Label>
                       <Form.Control
@@ -282,14 +458,16 @@ export default class AddEmployee extends Component {
                       <Col>
                         <Form.Group className="mb-3" controlId="formWorkState">
                           <Form.Label>Work State</Form.Label>
-                          <Form.Control
+                          <Form.Select
                             name="workState"
-                            type="text"
-                            defaultValue="NY"
+                            aria-label="Default select example"
                             onChange={this.handleChange}
                             required
-                            disabled
-                          />
+                          >
+                            <option value="NY">NY</option>
+                            <option value="NJ">NJ</option>
+                            <option value="CT">CT</option>
+                          </Form.Select>
                         </Form.Group>
                       </Col>
                       <Col>
@@ -312,69 +490,7 @@ export default class AddEmployee extends Component {
                   </Col>
                   <Col>
                     <h4>Benefits</h4>
-                    <Form.Group className="mb-3" controlId="formLivingState">
-                      <Form.Label>PTO</Form.Label>
-                      <Form.Control
-                        name="PTO"
-                        type="text"
-                        value="240"
-                        ref={this.ptoInput}
-                        required
-                        disabled
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formLivingState">
-                      <Form.Label>Health Insurance ($100)</Form.Label>
-                      <Form.Control
-                        name="Health_Insurance"
-                        type="text"
-                        value={this.state.HealthInsurance ? "100" : "0"}
-                        ref={this.healthInsuranceInput}
-                        required
-                        disabled
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formLivingState">
-                      <Form.Label>Food Stipend ($50)</Form.Label>
-                      <Form.Control
-                        name="Food_Stipend"
-                        type="text"
-                        value={this.state.FoodStipend ? "50" : "0"}
-                        ref={this.foodStipendInput}
-                        required
-                        disabled
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formLivingState">
-                      <Form.Label>Dental Insurance ($15)</Form.Label>
-                      <Form.Control
-                        name="Dental_Insurance"
-                        type="text"
-                        value={this.state.DentalInsurance ? "15" : "0"}
-                        ref={this.dentalInsuranceInput}
-                        required
-                        disabled
-                      />
-                    </Form.Group>
-                    Please select which benefits the employee would like.
-                    <Form.Check
-                      name="HealthInsurance"
-                      type="checkbox"
-                      label="Health Insurance"
-                      onChange={this.handleChange}
-                    />
-                    <Form.Check
-                      name="FoodStipend"
-                      type="checkbox"
-                      label="Food Stipend"
-                      onChange={this.handleChange}
-                    />
-                    <Form.Check
-                      name="DentalInsurance"
-                      type="checkbox"
-                      label="Dental Insurance"
-                      onChange={this.handleChange}
-                    />
+                    {benefits}
                     <br />
                     <Button variant="primary" type="submit">
                       Submit
