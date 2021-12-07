@@ -9,11 +9,12 @@ export function getEmployees() {
         name: list.Name,
         image: 'https://i1.wp.com/www.natureswaycolonic.co.uk/wp-content/uploads/2018/10/avatar-anonymous-300x300.png',
         salary: list.Salary,
-        livingState: list.LivingState,
+        workState: list.WorkState,
         employeeType: list.EmployeeType,
         position: list.Position,
         hoursWorked: list.Hours_Worked,
-        hourlyRate: list.Hourly_Rate
+        hourlyRate: list.Hourly_Rate,
+        workingHours: list.Working_Hours
       });
       //=======DOES NOT WORK CURRENTLY=========
       // //flip array so we can show a descending order

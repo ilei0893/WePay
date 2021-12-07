@@ -20,7 +20,9 @@ export default class ModifyEmployee extends Component {
       salary: "",
       hourlyRate:"",
       employeeType: "",
+      startDate: "",
       workState: "",
+      workingHours: "",
       livingState: "",
       phoneNum: "",
       position: "",
@@ -81,6 +83,8 @@ export default class ModifyEmployee extends Component {
           phoneNum: list.Phone_Number,
           position: list.Position,
           hourlyRate: list.Hourly_Rate,
+          startDate: list.StartDate,
+          workingHours: list.Working_Hours
         });
       });
     });
@@ -90,7 +94,18 @@ export default class ModifyEmployee extends Component {
     this.setState({
       isEdit: false,
       isEditBenefits: true,
+      isPastEmployee: false,
     });
+
+    response.getEmployee(this.state.fullName, this.state.SSN).then((res) => {
+      res.data.map((list) => {
+        this.setState({
+          startDate: list.StartDate,
+          workingHours: list.Working_Hours
+        });
+      });
+    });
+
     response.getBenefits(this.state.fullName).then((response) => {
       console.log(response.data);
       this.setState({
@@ -318,6 +333,8 @@ export default class ModifyEmployee extends Component {
             handleBenefitsSubmit={this.handleBenefitsSubmit}
             benefitsData={this.state.benefitsData}
             EmployeeType={this.state.employeeType}
+            startDate={this.state.startDate}
+            workingHours={this.state.workingHours}
             PTO={this.state.PTO}
             Health_Insurance={this.state.Health_Insurance}
             Food_Stipend={this.state.Food_Stipend}

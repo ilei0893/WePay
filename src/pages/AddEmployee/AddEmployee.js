@@ -24,7 +24,8 @@ export default class AddEmployee extends Component {
       salary: "0",
       employeeType: "FT",
       hourlyRate: "0",
-      hoursWorked: 0,
+      hoursWorked: "0",
+      workingHours: "80",
       position: "",
       workState: "NY",
       livingState: "NY",
@@ -62,12 +63,15 @@ export default class AddEmployee extends Component {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    
+    let date = new Date();
+    date = date.toISOString().split('T')[0]
     let data = {
       name: this.state.firstName + " " + this.state.lastName,
       email: this.state.email,
       SSN: this.state.SSN,
       phoneNum: this.state.phoneNum,
+      startDate: date,
       address:
         this.state.address +
         " " +
@@ -80,6 +84,7 @@ export default class AddEmployee extends Component {
       employeeType: this.state.employeeType,
       hourlyRate: this.state.hourlyRate,
       hoursWorked: this.state.hoursWorked,
+      workingHours: this.state.workingHours,
       position: this.state.position,
       workState: this.state.workState,
       livingState: this.state.livingState,
@@ -178,8 +183,9 @@ export default class AddEmployee extends Component {
         </div>
       );
     } else {
-      benefits = <div>
-                  <Form.Group className="mb-3" controlId="formPTO">
+      benefits = (
+        <div>
+          <Form.Group className="mb-3" controlId="formPTO">
             <Form.Label>PTO</Form.Label>
             <Form.Control
               name="PTO"
@@ -217,7 +223,7 @@ export default class AddEmployee extends Component {
             <Form.Control
               name="Dental_Insurance"
               type="text"
-              value={ "0"}
+              value={"0"}
               ref={this.dentalInsuranceInput}
               required
               disabled
@@ -229,7 +235,12 @@ export default class AddEmployee extends Component {
             type="checkbox"
             label="Health Insurance"
             onChange={this.handleChange}
+            disabled
+            checked={false}
           />
+          <Form.Text className="text-muted">
+            Part Time employees are eligible for health insurance after 1 year of work.
+          </Form.Text>
           <Form.Check
             name="FoodStipend"
             type="checkbox"
@@ -246,7 +257,8 @@ export default class AddEmployee extends Component {
             disabled
             checked={false}
           />
-      </div>;
+        </div>
+      );
     }
 
     if (this.state.isSubmitted == false) {
@@ -320,7 +332,7 @@ export default class AddEmployee extends Component {
                         required
                       />
                       <Form.Text className="text-muted">
-                        Must be in XXX-XX-XXX Format
+                        Must be in XXX-XX-XXXX Format
                       </Form.Text>
                     </Form.Group>
                     <Row>
@@ -411,35 +423,68 @@ export default class AddEmployee extends Component {
                         <option value="PT">Part Time</option>
                       </Form.Select>
                     </Form.Group>
-                    {this.state.employeeType === "FT" ? 
-                    <Form.Group className="mb-3" controlId="formSalary">
-                    <Form.Label>Salary</Form.Label>
-                    <Form.Control
-                      name="salary"
-                      placeholder="50000"
-                      pattern="[0-9]+"
-                      onChange={this.handleChange}
-                      required
-                    />
-                    <Form.Text className="text-muted">
-                      Symbols and words are not allowed
-                    </Form.Text>
-                  </Form.Group>
-                  :
-                  <Form.Group className="mb-3" controlId="formHourlyRate">
-                  <Form.Label>Hourly Rate</Form.Label>
-                  <Form.Control
-                    name="hourlyRate"
-                    placeholder="25"
-                    pattern="[0-9]+"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <Form.Text className="text-muted">
-                    Symbols and words are not allowed
-                  </Form.Text>
-                </Form.Group>
-    }
+                    {this.state.employeeType === "FT" ? (
+                      <>
+                      <Form.Group className="mb-3" controlId="formSalary">
+                        <Form.Label>Salary</Form.Label>
+                        <Form.Control
+                          name="salary"
+                          placeholder="50000"
+                          pattern="[0-9]+"
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <Form.Text className="text-muted">
+                          Symbols and words are not allowed
+                        </Form.Text>
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formHours">
+                      <Form.Label>Hours </Form.Label>
+                      <Form.Control
+                        name="workingHours"
+                        placeholder="30 hours"
+                        pattern="[0-9]+"
+                        onChange={this.handleChange}
+                        value={80}
+                        required
+                        disabled
+                      />
+                      <Form.Text className="text-muted">
+                        Symbols and words are not allowed
+                      </Form.Text>
+                    </Form.Group>
+                      </>
+                    ) : (
+                      <>
+                      <Form.Group className="mb-3" controlId="formHourlyRate">
+                        <Form.Label>Hourly Rate</Form.Label>
+                        <Form.Control
+                          name="hourlyRate"
+                          placeholder="25"
+                          pattern="[0-9]+"
+                          onChange={this.handleChange}
+                          defaultValue={0}
+                          required
+                        />
+                        <Form.Text className="text-muted">
+                          Symbols and words are not allowed
+                        </Form.Text>
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formHours">
+                      <Form.Label>Hours</Form.Label>
+                      <Form.Control
+                        name="workingHours"
+                        placeholder="30 hours"
+                        pattern="[0-9]+"
+                        onChange={this.handleChange}
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        Symbols and words are not allowed
+                      </Form.Text>
+                    </Form.Group>
+                    </>
+                    )}
                     <Form.Group className="mb-3" controlId="formPosition">
                       <Form.Label>Position</Form.Label>
                       <Form.Control

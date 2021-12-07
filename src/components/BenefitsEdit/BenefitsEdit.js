@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Col,
-  Row,
-  Button,
-  Form,
-  ThemeProvider,
-} from "react-bootstrap";
-import axios from "axios";
+import { Container, Col, Row, Button, Form } from "react-bootstrap";
+import moment from "moment";
 
 export default class BenefitsEdit extends Component {
   constructor(props) {
@@ -17,6 +10,7 @@ export default class BenefitsEdit extends Component {
       HealthInsurance: false,
       FoodStipend: "",
       DentalInsurance: "",
+      isOverAYear: false
     };
     this.ptoInput = React.createRef();
     this.healthInsuranceInput = React.createRef();
@@ -35,6 +29,23 @@ export default class BenefitsEdit extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.workingHours)
+    //YYYY-MM-DD format
+    let oldDateShort = this.props.startDate.substring(0, 10);
+    const currentDate = new Date();
+    const oldDate = new Date(oldDateShort);
+
+    console.log(currentDate);
+    console.log(oldDate);
+    if((currentDate - oldDate) / (1000 * 3600 * 24 * 365) > 1){ //if true then its over a year
+      this.setState({
+        isOverAYear: true,
+      })
+    } else { // else false then its not over a year
+      this.setState({
+        isOverAYear: false,
+      })
+    }
     if (this.props.Health_Insurance > 0) {
       this.setState({
         HealthInsurance: true,
@@ -92,7 +103,8 @@ export default class BenefitsEdit extends Component {
                 pattern="^([0]|1[5])$"
               />
               <Form.Text className="text-muted">
-                Please enter 0 for no Dental Insurance or 15 for Dental Insurance
+                Please enter 0 for no Dental Insurance or 15 for Dental
+                Insurance
               </Form.Text>
             </Form.Group>
             <br />
@@ -128,6 +140,7 @@ export default class BenefitsEdit extends Component {
                 onChange={this.props.handleChange}
                 pattern="^([0]|1[0][0])$"
                 required
+                disabled={this.state.isOverAYear || this.props.workingHours >= 30 ? false : true}
               />
               <Form.Text className="text-muted">
                 Please enter 0 for no benefits or 100 for benefits
