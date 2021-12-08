@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Col, Row, Button, Form } from "react-bootstrap";
-import moment from "moment";
 
 export default class BenefitsEdit extends Component {
   constructor(props) {
