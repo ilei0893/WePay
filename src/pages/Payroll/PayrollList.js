@@ -28,6 +28,7 @@ export default function PayrollList(props) {
                 image={user.image}
                 name={user.name}
                 salary={user.salary}
+                livingState={user.livingState}
                 oasdiTaxes={user.salary * 0.062}
                 hiTaxes={user.salary * 0.0145}
               />
