@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import OnlineReportImage from "../../assets/Online_report_Outline.png"; //logo img
 
 import PropTypes from "prop-types"; //USE NPM START IF U DONT HAVE THISSSS
 
@@ -67,6 +68,7 @@ if(userNotFound === false){
   return (
     <div>
       <Form className="login-form" onSubmit={handleSubmit} validated={isValidated}>
+      <img src={OnlineReportImage} width="150px" />
         <h1>Log In</h1>
         <Form.Label>
           Username
@@ -95,6 +97,7 @@ if(userNotFound === false){
   )} else return(
     <div>
     <Form className="login-form" onSubmit={handleSubmit} validated={isValidated}>
+    <img src={OnlineReportImage} width="150px" />
       <h1>Log In</h1>
       <Form.Label>
         Username

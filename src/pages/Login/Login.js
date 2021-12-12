@@ -1,6 +1,6 @@
 import React from 'react'
 import {Login as LoginComponent} from "../../components"
-import PropTypes from "prop-types"; //USE NPM START IF U DONT HAVE THISSSS
+import PropTypes from "prop-types"; //USE NPM UPDATE IF U DONT HAVE THISSSS
 
 export default function Login({setToken}) {
     return (
