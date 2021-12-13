@@ -139,7 +139,7 @@ export default class BenefitsEdit extends Component {
                 onChange={this.props.handleChange}
                 pattern="^([0]|1[0][0])$"
                 required
-                disabled={this.state.isOverAYear || this.props.workingHours >= 30 ? false : true}
+                disabled={this.state.isOverAYear ? false : true}
               />
               <Form.Text className="text-muted">
                 Please enter 0 for no benefits or 100 for benefits

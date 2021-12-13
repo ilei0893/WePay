@@ -16,18 +16,17 @@ if(sessionStorage.getItem('token')){
   const tokenString = sessionStorage.getItem('token');
   const token = JSON.parse(tokenString);
   console.log(token.data.Name)
+
 USER = {
   name: token.data.Name,
   image:
     "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png",
-  position: "Engineer",
-  company: "Chase",
   SSN: token.data.SSN.substring(token.data.SSN.length - 4),
 };
 }
 
 console.log(USER.name)
-
+console.log(USER.SSN)
 
 export default class EmployeeDashboard extends Component {
   constructor() {
@@ -40,9 +39,13 @@ export default class EmployeeDashboard extends Component {
       livingState: "",
       phoneNum: "",
       position: "",
+      hourlyRate: "",
+      hoursWorked: "",
+      workingHours: "",
       email: "",
       SSN: "",
       PTO: "",
+      employeeType: "",
       Health_Insurance: "",
       Food_Stipend: "",
       Dental_Insurance: "",
@@ -53,8 +56,8 @@ export default class EmployeeDashboard extends Component {
   componentDidMount() {
     //GET EMPLOYEE INFO
     response.getEmployee(USER.name, USER.SSN).then((res) => {
-      console.log(res);
       res.data.map((list) => {
+        console.log(list)
         this.setState({
           fullName: list.Name,
           address: list.Address,
@@ -65,6 +68,10 @@ export default class EmployeeDashboard extends Component {
           email: list.Email,
           position: list.Position,
           SSN: list.SSN,
+          employeeType: list.EmployeeType,
+          hourlyRate: list.Hourly_Rate,
+          hoursWorked: list.Hours_Worked,
+          workingHours: list.Working_Hours
         });
       });
     });
@@ -94,6 +101,8 @@ export default class EmployeeDashboard extends Component {
     return (
       <div>
         <Container>
+      {this.state.employeeType === "FT" ? ( //IF EMPLOYEE IS A FULL TIMER
+        <>
           <h2 className="text-center">Overview</h2>
           <Row>
             <Col>
@@ -113,6 +122,8 @@ export default class EmployeeDashboard extends Component {
                       <Card.Text>
                         Position: {this.state.position} <br />
                         Salary: ${this.state.salary} <br />
+                        Working Hours: {this.state.workingHours} hours per week <br />
+                        Total Hours worked: {this.state.hoursWorked} hours<br />
                       </Card.Text>
                     </Card.Body>
                   </Col>
@@ -148,6 +159,67 @@ export default class EmployeeDashboard extends Component {
               <Calendar onChange={this.onChange} value={this.state.date} />
             </Col>
           </Row>
+          </>
+          ) : ( // IF EMPLOYEE IS A PART TIMER
+            <>
+            <h2 className="text-center">Overview</h2>
+            <Row>
+              <Col>
+                <Card style={{ padding: "10px" }}>
+                  <Row>
+                    <Col md={2}>
+                      <Image
+                        src={USER.image}
+                        width="150px"
+                        height="150px"
+                        roundedCircle
+                      />
+                    </Col>
+                    <Col>
+                      <Card.Body style={{ marginLeft: 30 }}>
+                        <Card.Title>Welcome, {this.state.fullName}!</Card.Title>
+                        <Card.Text>
+                          Position: {this.state.position} <br />
+                          Working Hours: {this.state.workingHours} hours per week <br />
+                          Hourly Rate: ${this.state.hourlyRate} <br />
+                          Total Hours worked: {this.state.hoursWorked} hours<br />
+                        </Card.Text>
+                      </Card.Body>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title>Personal Information</Card.Title>
+                    Email: {this.state.email} <br />
+                    Address: {this.state.address} Hours <br />
+                    WorkState: {this.state.workState} <br />
+                    Living State: {this.state.livingState} <br />
+                    Phone Number: {this.state.phoneNum} <br />
+                    Last 4 Digits of SSN:{" "}
+                    {this.state.SSN.substring(this.state.SSN.length - 4)}
+                  </Card.Body>
+                </Card>
+                <Card style={{ marginTop: "10px" }}>
+                  <Card.Body>
+                    <Card.Title>PTO And Benefits</Card.Title>
+                    PTO: {this.state.PTO} Hours <br />
+                    Health Insurance: ${this.state.Health_Insurance} <br />
+                    Food Stipend: ${this.state.Food_Stipend} <br />
+                    Dental Insurance: ${this.state.Dental_Insurance} <br />
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Calendar onChange={this.onChange} value={this.state.date} />
+              </Col>
+            </Row>
+            </>
+          )}
           <Row>
             <Card>
               <Card.Body>
