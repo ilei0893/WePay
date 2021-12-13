@@ -11,9 +11,9 @@ import "./Dashboard.css";
 import "react-calendar/dist/Calendar.css";
 
 //DUMMY DATA
-let USER = []
-if(sessionStorage.getItem('token')){
-  const tokenString = sessionStorage.getItem('token');
+let USER = [];
+if (sessionStorage.getItem("token")) {
+  const tokenString = sessionStorage.getItem("token");
   const token = JSON.parse(tokenString);
   console.log(token.data.Name)
 
@@ -78,10 +78,7 @@ export default class EmployeeDashboard extends Component {
 
     //GET PAYROLLS
     response.getEmployeePaychecks(USER.name).then((res) => {
-      this.setState({
-        PayrollData: res.data,
-      });
-      console.log(this.state.PayrollData);
+      this.setState({ PayrollData: res.data });
     });
 
     //GET BENEFITS
@@ -224,30 +221,36 @@ export default class EmployeeDashboard extends Component {
             <Card>
               <Card.Body>
                 <Card.Title>Paycheck History</Card.Title>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Paycheck Date</th>
-                      <th>Gross Pay</th>
-                      <th>Total Taxes</th>
-                      <th>Total Benefits</th>
-                      <th>NetPay</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {this.state.PayrollData.map((list) => (
-                    <tr>
-                      <td>{list.Name}</td>
-                      <td>{list.PaycheckDate.slice(0, 19).replace('T', ' ')}</td>
-                      <td>{list.GrossPay}</td>
-                      <td>{list.Taxes}</td>
-                      <td>{list.Benefits}</td>
-                      <td>{list.Total}</td>
-                    </tr>
-                  ))}
-                  </tbody>
-                </Table>
+                {this.state.PayrollData.length !== 0 ? (
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Paycheck Date</th>
+                        <th>Gross Pay</th>
+                        <th>Total Taxes</th>
+                        <th>Total Benefits</th>
+                        <th>NetPay</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.PayrollData.map((list) => (
+                        <tr>
+                          <td>{list.Name}</td>
+                          <td>
+                            {list.PaycheckDate.slice(0, 19).replace("T", " ")}
+                          </td>
+                          <td>{list.GrossPay}</td>
+                          <td>{list.Taxes}</td>
+                          <td>{list.Benefits}</td>
+                          <td>{list.Total}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <h3>Please contact support.</h3>
+                )}
               </Card.Body>
             </Card>
           </Row>
